@@ -1,5 +1,14 @@
 # db_haksa_web_project
 데이터베이스 구축 팀프로젝트 학사관리 웹 만들기
+
+# 로컬 main 최신화 순서
+새 브랜치 생성
+내 작업 진행(commit)
+브랜치 push
+PR (Pull Request) 생성
+검토 후 main에 merge
+다시 main 최신화
+
 ## 🔔 Project Rules
 - main 브랜치는 배포용, 직접 push 금지
 - 기능은 각자 feature 브랜치에서 개발 후 PR
