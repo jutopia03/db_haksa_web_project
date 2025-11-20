@@ -30,7 +30,7 @@ def create_app():
         role = session.get("role")
         if role == "student":
             # 나중에 student 블루프린트 만들면 여기도 살릴 예정
-            return "학생 홈 (student/home 라우트 구현 예정)"
+            return redirect(url_for("student.dashboard"))
         elif role == "prof":
             return "교수 홈 (prof/home 라우트 구현 예정)"
         elif role == "admin":

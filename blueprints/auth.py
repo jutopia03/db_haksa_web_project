@@ -32,12 +32,14 @@ def login():
 
     # 4단계: 로그인 성공 → 세션 저장
     session["account_id"] = user.account_id
+    session["user_id"] = user.account_id
     session["login_id"] = user.login_id
     session["role"] = user.role
+    
 
     # 역할에 따른 분기 (임시)
     if user.role == "student":
-        return "학생 로그인 성공! (student/home 나중에 구현)"
+        return redirect(url_for("student.dashboard"))
     elif user.role == "professor":
         return "교수 로그인 성공! (prof/home 나중에 구현)"
     elif user.role == "admin":
