@@ -16,6 +16,14 @@ def create_app():
     # 블루프린트 등록
     app.register_blueprint(auth_bp)
 
+    from blueprints.student import student_bp
+    from blueprints.prof import prof_bp
+    from blueprints.admin import admin_bp
+
+    app.register_blueprint(student_bp)
+    app.register_blueprint(prof_bp)
+    app.register_blueprint(admin_bp)
+
     # 메인 라우트
     @app.route("/")
     def index():

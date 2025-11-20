@@ -5,17 +5,23 @@
     <title>{% block title %}학사관리 시스템{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <header>
-        <h1>학사관리 시스템</h1>
-        <nav>
-            <!-- 나중에 메뉴 추가 -->
-        </nav>
-    </header>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+<body>
+
+<header>
+    <h1>학사관리 시스템</h1>
+    <nav>
+        <a href="/student/home">학생</a> |
+        <a href="/prof/home">교수</a> |
+        <a href="/admin/home">관리자</a> |
+        <a href="/logout">로그아웃</a>
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
 </body>
 </html>

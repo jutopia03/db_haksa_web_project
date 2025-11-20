@@ -38,7 +38,7 @@ def login():
     # 역할에 따른 분기 (임시)
     if user.role == "student":
         return "학생 로그인 성공! (student/home 나중에 구현)"
-    elif user.role == "prof":
+    elif user.role == "professor":
         return "교수 로그인 성공! (prof/home 나중에 구현)"
     elif user.role == "admin":
         return "관리자 로그인 성공! (admin/home 나중에 구현)"
