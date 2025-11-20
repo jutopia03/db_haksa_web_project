@@ -87,6 +87,7 @@ def profile():
 
     # 지도교수: 스키마에 'advisor_id'가 없어서,
     # 같은 학과의 첫 번째 교수(최소 professor_id)를 지도교수로 가정합니다. (추측입니다)
+    # 수정해야함
     sql = text(
         """
         SELECT
