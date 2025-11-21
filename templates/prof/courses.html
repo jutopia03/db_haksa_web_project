@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}내 강좌 목록{% endblock %}
+
+{% block content %}
+  <h2>내 강좌 목록</h2>
+
+  {% if courses and courses|length > 0 %}
+    <table border="1" cellpadding="8">
+      <thead>
+        <tr>
+          <th>강좌번호</th>
+          <th>강좌명</th>
+          <th>개설학과</th>
+          <th>강의시간</th>
+          <th>강의실</th>
+          <th>수강 학생</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in courses %}
+          <tr>
+            <td>{{ c.course_id }}</td>
+            <td>{{ c.course_name }}</td>
+            <td>{{ c.dept_name }}</td>
+            <td>{{ c.hours }}</td>
+            <td>{{ c.classroom }}</td>
+            <td>
+              <a href="{{ url_for('prof.course_students', course_id=c.course_id) }}">
+                수강 학생 보기
+              </a>
+              <!-- "View enrolled students" = "수강 학생 보기" -->
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>담당하고 있는 강좌가 없습니다.</p>
+    <!-- "No courses assigned." = "담당하고 있는 강좌가 없습니다." -->
+  {% endif %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for msg in messages %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <p style="margin-top: 16px;">
+    <a href="{{ url_for('prof.dashboard') }}">← 대시보드로 돌아가기</a>
+  </p>
+{% endblock %}

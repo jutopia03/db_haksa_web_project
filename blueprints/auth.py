@@ -41,9 +41,17 @@ def login():
     if user.role == "student":
         return redirect(url_for("student.dashboard"))
     elif user.role == "professor":
-        return "교수 로그인 성공! (prof/home 나중에 구현)"
+        return redirect(url_for("prof.dashboard"))
     elif user.role == "admin":
         return "관리자 로그인 성공! (admin/home 나중에 구현)"
     else:
         flash("알 수 없는 권한입니다.")
         return redirect(url_for("auth.login"))
+    
+
+# 세션 전체 비우기 (로그아웃)
+@auth_bp.route("/logout")
+def logout():
+    session.clear()
+    flash("로그아웃되었습니다.")
+    return redirect(url_for("auth.login"))
