@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}교수 대시보드{% endblock %}
+
+{% block content %}
+  <h2>{{ professor_name }} 교수님 환영합니다</h2>
+  <!-- "Welcome, Professor {{ professor_name }}!" = "{{ professor_name }} 교수님, 환영합니다!" -->
+
+  <hr>
+
+  <section>
+    <h3>빠른 링크</h3>
+    <ul>
+      <li>
+        <a href="{{ url_for('prof.profile') }}">내 정보 보기</a>
+        <!-- "View my profile" = "내 정보 보기" -->
+      </li>
+      <li>
+        <a href="{{ url_for('prof.courses') }}">내 강좌 목록</a>
+        <!-- "View my courses" = "내 강좌 목록" -->
+      </li>
+    </ul>
+  </section>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for msg in messages %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+{% endblock %}

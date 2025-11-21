@@ -27,17 +27,8 @@ def create_app():
     # 메인 라우트
     @app.route("/")
     def index():
-        role = session.get("role")
-        if role == "student":
-            # 나중에 student 블루프린트 만들면 여기도 살릴 예정
-            return redirect(url_for("student.dashboard"))
-        elif role == "prof":
-            return "교수 홈 (prof/home 라우트 구현 예정)"
-        elif role == "admin":
-            return "관리자 홈 (admin/home 라우트 구현 예정)"
-        else:
-            return redirect(url_for("auth.login"))
-
+        return redirect(url_for("auth.login"))
+    
     return app
 
 

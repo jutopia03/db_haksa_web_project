@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}수강 학생 목록{% endblock %}
+
+{% block content %}
+  <h2>강좌별 수강 학생 목록</h2>
+
+  <p>
+    강좌번호: {{ course_id }}<br>
+    강좌명: {{ course_name }}
+  </p>
+
+  {% if students and students|length > 0 %}
+    <table border="1" cellpadding="8">
+      <thead>
+        <tr>
+          <th>학생번호</th>
+          <th>학생이름</th>
+          <th>학과</th>
+          <th>학년</th>
+          <th>성적</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+          <tr>
+            <td>{{ s.student_id }}</td>
+            <td>{{ s.student_name }}</td>
+            <td>{{ s.dept_name }}</td>
+            <td>{{ s.grade_level }}</td>
+            <td>{{ s.grade }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>이 강좌를 수강 중인 학생이 없습니다.</p>
+    <!-- "No students enrolled in this course." = "이 강좌를 수강 중인 학생이 없습니다." -->
+  {% endif %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for msg in messages %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <p style="margin-top: 16px;">
+    <a href="{{ url_for('prof.courses') }}">← 내 강좌 목록으로 돌아가기</a>
+    <!-- "Back to my courses" = "내 강좌 목록으로 돌아가기" -->
+  </p>
+{% endblock %}
