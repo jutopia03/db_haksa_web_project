@@ -2,26 +2,31 @@
 
 {% block title %}로그인{% endblock %}
 
-{% block content %}
-<h2>로그인</h2>
-<form method="post">
-    <label>아이디:
-        <input type="text" name="user_id">
-    </label><br>
-    <label>비밀번호:
-        <input type="password" name="password">
-    </label><br>
-    <button type="submit">로그인</button>
-</form>
+{% block body_class %}login-page{% endblock %}
+{% block layout %}login-layout{% endblock %}
 
-<!-- flash 메시지 표시 -->
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul>
-    {% for msg in messages %}
-      <li>{{ msg }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+{% block content %}
+<div class="login-wrapper">
+  <div class="login-box">
+    <h2 class="login-title">로그인</h2>
+
+    <form method="post" class="login-row">
+
+      <div class="login-fields">
+          <div class="field">
+              <span class="field-icon">👤</span>
+              <input type="text" name="user_id" placeholder="아이디를 입력하세요.">
+          </div>
+
+          <div class="field">
+              <span class="field-icon">🔒</span>
+              <input type="password" name="password" placeholder="비밀번호를 입력하세요.">
+          </div>
+      </div>
+
+      <button type="submit" class="login-side-btn">로그인</button>
+    </form>
+
+  </div>
+</div>
 {% endblock %}

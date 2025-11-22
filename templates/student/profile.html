@@ -3,63 +3,84 @@
 {% block title %}내 정보{% endblock %}
 
 {% block content %}
-  <h2>내 정보</h2>
+<div class="total-layout">
 
-  <table border="1" cellpadding="8">
-    <tbody>
-      <tr>
-        <th>이름</th>
-        <td>{{ student.name }}</td>
-      </tr>
-      <tr>
-        <th>학번</th>
-        <td>{{ student.student_id }}</td>
-      </tr>
-      <tr>
-        <th>학과명</th>
-        <td>{{ student.department_name }}</td>
-      </tr>
-      <tr>
-        <th>지도교수</th>
-        <td>{{ student.advisor_name }}</td>
-      </tr>
-      <tr>
-        <th>학년 / 학기</th>
-        <td>{{ student.year }}학년 {{ student.semester }}학기</td>
-      </tr>
-      <tr>
-        <th>연락처</th>
-        <td>{{ student.phone }}</td>
-      </tr>
-      <tr>
-        <th>이메일</th>
-        <td>
-          {% if student.email %}
-            {{ student.email }}
-          {% else %}
-            이메일 정보가 없습니다.
-          {% endif %}
-        </td>
-      </tr>
-      <tr>
-        <th>주소</th>
-        <td>{{ student.address }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- 왼쪽 사이드바 -->
+  <aside class="total-sidebar">
+    <div class="total-menu-header">메뉴</div>
+    <ul class="total-menu">
+      <li>
+        <a href="{{ url_for('student.dashboard') }}">대시보드</a>
+      </li>
+      <li class="active">
+        <a href="{{ url_for('student.profile') }}">내 정보</a>
+      </li>
+      <li>
+        <a href="{{ url_for('student.enrollments') }}">수강내역</a>
+      </li>
+    </ul>
+  </aside>
 
-  <!-- flash 메시지 표시 -->
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul>
-        {% for msg in messages %}
-          <li>{{ msg }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+  <!-- 오른쪽 본문 -->
+  <section class="total-main">
+    <h2>내 정보</h2>
+    <hr>
 
-  <p>
-    <a href="{{ url_for('student.dashboard') }}">← 대시보드로 돌아가기</a>
-  </p>
+    <table border="1" cellpadding="8">
+      <tbody>
+        <tr>
+          <th>이름</th>
+          <td>{{ student.name }}</td>
+        </tr>
+        <tr>
+          <th>학번</th>
+          <td>{{ student.student_id }}</td>
+        </tr>
+        <tr>
+          <th>학과명</th>
+          <td>{{ student.department_name }}</td>
+        </tr>
+        <tr>
+          <th>지도교수</th>
+          <td>{{ student.advisor_name }}</td>
+        </tr>
+        <tr>
+          <th>학년 / 학기</th>
+          <td>{{ student.year }}학년 {{ student.semester }}학기</td>
+        </tr>
+        <tr>
+          <th>연락처</th>
+          <td>{{ student.phone }}</td>
+        </tr>
+        <tr>
+          <th>이메일</th>
+          <td>
+            {% if student.email %}
+              {{ student.email }}
+            {% else %}
+              이메일 정보가 없습니다.
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>주소</th>
+          <td>{{ student.address }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- flash 메시지 표시 -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+  </section>
+
+</div>
 {% endblock %}

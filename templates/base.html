@@ -6,22 +6,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
-<header>
-    <h1>학사관리 시스템</h1>
-    <nav>
-        <a href="/student/home">학생</a> |
-        <a href="/prof/home">교수</a> |
-        <a href="/admin/home">관리자</a> |
-        <a href="/logout">로그아웃</a>
-    </nav>
+<header class="topbar">
+    <div class="topbar-left">
+        <span class="topbar-logo">학사관리 시스템</span>
+    </div>
+
+    <div class="topbar-right">
+        <div class="topbar-user">
+            <span class="topbar-avatar">👤</span>
+            <span class="topbar-username">{{ username }}</span>
+        </div>
+
+        <a href="/logout" class="topbar-logout" title="로그아웃">
+            ⬅
+        </a>
+    </div>
 </header>
 
-<main>
-    {% block content %}
+<!-- 페이지 형태 선택 -->
+<div class="{% block layout %}default-layout{% endblock %}">
+
+    {% block sidebar %}
+    <!-- 기본 -->
     {% endblock %}
-</main>
+
+    <section class="page-content">
+        {% block content %}{% endblock %}
+    </section>
+
+</div>
 
 </body>
 </html>

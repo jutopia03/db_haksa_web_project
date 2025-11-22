@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}수강 학생 목록{% endblock %}
+{% block body_class %}popup-page{% endblock %} 
 
 {% block content %}
+
   <h2>강좌별 수강 학생 목록</h2>
 
   <p>
@@ -35,7 +37,6 @@
     </table>
   {% else %}
     <p>이 강좌를 수강 중인 학생이 없습니다.</p>
-    <!-- "No students enrolled in this course." = "이 강좌를 수강 중인 학생이 없습니다." -->
   {% endif %}
 
   {% with messages = get_flashed_messages() %}
@@ -47,9 +48,4 @@
       </ul>
     {% endif %}
   {% endwith %}
-
-  <p style="margin-top: 16px;">
-    <a href="{{ url_for('prof.courses') }}">← 내 강좌 목록으로 돌아가기</a>
-    <!-- "Back to my courses" = "내 강좌 목록으로 돌아가기" -->
-  </p>
 {% endblock %}

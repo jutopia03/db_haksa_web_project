@@ -3,32 +3,69 @@
 {% block title %}교수 대시보드{% endblock %}
 
 {% block content %}
-  <h2>{{ professor_name }} 교수님 환영합니다</h2>
-  <!-- "Welcome, Professor {{ professor_name }}!" = "{{ professor_name }} 교수님, 환영합니다!" -->
+<div class="total-layout">
 
-  <hr>
-
-  <section>
-    <h3>빠른 링크</h3>
-    <ul>
-      <li>
-        <a href="{{ url_for('prof.profile') }}">내 정보 보기</a>
-        <!-- "View my profile" = "내 정보 보기" -->
+  <!-- 왼쪽 사이드바 -->
+  <aside class="total-sidebar">
+    <div class="total-menu-header">메뉴</div>
+    <ul class="total-menu">
+      <li class="active">
+        <a href="{{ url_for('prof.dashboard') }}">대시보드</a>
       </li>
       <li>
-        <a href="{{ url_for('prof.courses') }}">내 강좌 목록</a>
-        <!-- "View my courses" = "내 강좌 목록" -->
+        <a href="{{ url_for('prof.profile') }}">내 정보</a>
+      </li>
+      <li>
+        <a href="{{ url_for('prof.courses') }}">담당 강좌</a>
       </li>
     </ul>
-  </section>
+  </aside>
 
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul>
+  <!-- 오른쪽 본문: 교수용 대시보드 -->
+  <section class="total-main total-main-dashboard">
+
+    <div class="dash-header">
+      <h2>{{ prof_name }} 교수님 환영합니다</h2>
+      <p class="dash-sub">오늘도 좋은 강의 되세요.</p>
+    </div>
+
+    <div class="dash-card-row">
+      <div class="dash-card">
+        <div class="dash-card-icon">👨‍🏫</div>
+        <div class="dash-card-text">
+          <div class="dash-card-title">담당 강좌</div>
+          <div class="dash-card-desc">이번 학기에 진행 중인 강좌를 확인해보세요.</div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-icon">📝</div>
+        <div class="dash-card-text">
+          <div class="dash-card-title">제출된 과제</div>
+          <div class="dash-card-desc">최근 제출된 과제를 확인해보세요.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-banner">
+      <div class="dash-banner-label">알림</div>
+      <div class="dash-banner-text">
+        <div class="dash-banner-title">새 공지사항을 등록해보세요.</div>
+        <div class="dash-banner-desc">수업 자료와 공지를 등록할 수 있습니다.</div>
+      </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="login-flash" style="margin-top: 18px;">
         {% for msg in messages %}
           <li>{{ msg }}</li>
         {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+  </section>
+
+</div>
 {% endblock %}

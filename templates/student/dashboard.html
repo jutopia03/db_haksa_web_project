@@ -3,33 +3,73 @@
 {% block title %}학생 대시보드{% endblock %}
 
 {% block content %}
-  <h2>{{ student_name }} 학생님 환영합니다</h2>
-  <!-- "Welcome, {{ student_name }}!" = "{{ student_name }}님, 환영합니다!" -->
+<div class="total-layout">
 
-  <hr>
-
-  <section>
-    <h3>빠른 링크</h3>
-    <ul>
-      <li>
-        <a href="{{ url_for('student.profile') }}">내 정보 보기</a>
-        <!-- "View my profile" = "내 정보 보기" -->
+  <!-- 왼쪽 사이드바 -->
+  <aside class="total-sidebar">
+    <div class="total-menu-header">메뉴</div>
+    <ul class="total-menu">
+      <li class="active">
+        <a href="{{ url_for('student.dashboard') }}">대시보드</a>
       </li>
       <li>
-        <a href="{{ url_for('student.enrollments') }}">내 수강내역 보기</a>
-        <!-- "View my enrollments" = "내 수강내역 보기" -->
+        <a href="{{ url_for('student.profile') }}">내 정보</a>
+      </li>
+      <li>
+        <a href="{{ url_for('student.enrollments') }}">수강내역</a>
       </li>
     </ul>
-  </section>
+  </aside>
 
-  <!-- 필요하면 flash 메시지 영역도 추가할 수 있음 -->
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul>
+  <!-- 오른쪽 본문: 대시보드 영역 -->
+  <section class="total-main total-main-dashboard">
+
+    <!-- 상단 인사말 -->
+    <div class="dash-header">
+      <h2>{{ student_name }} 학생님 환영합니다</h2>
+      <p class="dash-sub">오늘도 좋은 하루 되세요.</p>
+    </div>
+
+    <!-- 카드 2개 -->
+    <div class="dash-card-row">
+      <div class="dash-card">
+        <div class="dash-card-icon">📅</div>
+        <div class="dash-card-text">
+          <div class="dash-card-title">오늘의 일정</div>
+          <div class="dash-card-desc">현재 등록된 과제나 시험 일정이 없습니다.</div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-icon">📚</div>
+        <div class="dash-card-text">
+          <div class="dash-card-title">내 강좌</div>
+          <div class="dash-card-desc">이번 학기 수강 강좌를 확인해보세요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 하단 TIP 배너 -->
+    <div class="dash-banner">
+      <div class="dash-banner-label">TIP</div>
+      <div class="dash-banner-text">
+        <div class="dash-banner-title">{{ student_name }} 학생, 오늘도 좋은 하루 보내세요.</div>
+        <div class="dash-banner-desc">대시보드를 자주 확인하면 과제와 시험 일정을 놓치지 않을 수 있어요.</div>
+      </div>
+    </div>
+
+    <!-- flash 메시지 -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="login-flash" style="margin-top: 18px;">
         {% for msg in messages %}
           <li>{{ msg }}</li>
         {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+  </section>
+
+</div>
 {% endblock %}

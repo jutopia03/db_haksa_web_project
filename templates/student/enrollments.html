@@ -3,68 +3,86 @@
 {% block title %}내 수강내역 / 성적{% endblock %}
 
 {% block content %}
-  <h2>내 수강내역 / 성적</h2>
+<div class="total-layout">
 
-  <!-- 필터 폼: 연도 / 학기 선택 -->
-  <form method="get" style="margin-bottom: 16px;">
-    <label>
-      연도:
-      <input type="number" name="year" value="{{ selected_year or '' }}" placeholder="예: 2024">
-    </label>
-    <label style="margin-left: 8px;">
-      학기:
-      <input type="number" name="semester" value="{{ selected_semester or '' }}" placeholder="예: 1">
-    </label>
-    <button type="submit">조회</button>
-    <a href="{{ url_for('student.enrollments') }}">전체 보기</a>
-  </form>
+  <!-- 왼쪽 사이드바 -->
+  <aside class="total-sidebar">
+    <div class="total-menu-header">메뉴</div>
+    <ul class="total-menu">
+      <li>
+        <a href="{{ url_for('student.dashboard') }}">대시보드</a>
+      </li>
+      <li>
+        <a href="{{ url_for('student.profile') }}">내 정보</a>
+      </li>
+      <li class="active">
+        <a href="{{ url_for('student.enrollments') }}">수강내역</a>
+      </li>
+    </ul>
+  </aside>
 
-  {% if enrollments and enrollments|length > 0 %}
-    <table border="1" cellpadding="8">
-      <thead>
-        <tr>
-          <th>연도</th>
-          <th>학기</th>
-          <th>강좌번호</th>
-          <th>강좌명</th>
-          <th>담당교수</th>
-          <th>학점</th>
-          <th>성적</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for e in enrollments %}
+  <!-- 오른쪽 본문 -->
+  <section class="total-main">
+    <h2>내 수강내역 / 성적</h2>
+    <hr>
+
+    <!-- 필터 폼 -->
+    <form method="get" style="margin-bottom: 16px;">
+      <label>
+        연도:
+        <input type="number" name="year" value="{{ selected_year or '' }}" placeholder="예: 2024">
+      </label>
+      <label style="margin-left: 8px;">
+        학기:
+        <input type="number" name="semester" value="{{ selected_semester or '' }}" placeholder="예: 1">
+      </label>
+      <button type="submit">조회</button>
+      <a href="{{ url_for('student.enrollments') }}">전체 보기</a>
+    </form>
+
+    {% if enrollments and enrollments|length > 0 %}
+      <table border="1" cellpadding="8">
+        <thead>
           <tr>
-            <td>{{ e.year }}</td>
-            <td>{{ e.semester }}</td>
-            <td>{{ e.course_id }}</td>
-            <td>
-              {# 강좌 상세 페이지가 생기면 url_for 부분을 실제 라우트 이름에 맞게 수정하면 됨 #}
-              {{ e.course_name }}
-            </td>
-            <td>{{ e.professor }}</td>
-            <td>{{ e.credit }}</td>
-            <td>{{ e.grade }}</td>
+            <th>연도</th>
+            <th>학기</th>
+            <th>강좌번호</th>
+            <th>강좌명</th>
+            <th>담당교수</th>
+            <th>학점</th>
+            <th>성적</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>조회된 수강내역이 없습니다.</p>
-  {% endif %}
-
-  <!-- flash 메시지 표시 -->
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul>
-        {% for msg in messages %}
-          <li>{{ msg }}</li>
-        {% endfor %}
-      </ul>
+        </thead>
+        <tbody>
+          {% for e in enrollments %}
+            <tr>
+              <td>{{ e.year }}</td>
+              <td>{{ e.semester }}</td>
+              <td>{{ e.course_id }}</td>
+              <td>{{ e.course_name }}</td>
+              <td>{{ e.professor }}</td>
+              <td>{{ e.credit }}</td>
+              <td>{{ e.grade }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>조회된 수강내역이 없습니다.</p>
     {% endif %}
-  {% endwith %}
 
-  <p style="margin-top: 16px;">
-    <a href="{{ url_for('student.dashboard') }}">← 대시보드로 돌아가기</a>
-  </p>
+    <!-- flash 메시지 -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="login-flash">
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+  </section>
+
+</div>
 {% endblock %}
