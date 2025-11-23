@@ -1,0 +1,174 @@
+/* 상단 헤더 / 네비게이션 */
+header.topbar {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 10px 24px;
+    box-shadow: var(--shadow-header);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 왼쪽 로고 텍스트 */
+.topbar-logo {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* 오른쪽 유저 영역 전체 */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 유저 아이콘 + 이름 */
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+/* 동그란 프로필 아이콘 */
+.topbar-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* 사용자 이름 */
+.topbar-username {
+    font-weight: 500;
+}
+
+/* 로그아웃 버튼 (흰색 정사각형) */
+.topbar-logout {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-s);
+    background: #ffffff;
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+.topbar-logout:hover {
+    background: #e8f0ff;
+}
+
+/* 메인 컨테이너 (학생/교수/관리자 공통 기본) */
+main {
+    width: 100%;
+    max-width: none;
+    margin: 16px 0 32px 0;      /* 헤더 아래 여백 */
+    padding: 0 24px 24px 24px;  /* 좌우·아래 여백 */
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* 학생/교수 레이아웃 (사이드바 + 내용) */
+.total-layout {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;     /* 양쪽 높이 동일하게 */
+    min-height: 450px;        /* 전체 카드 기본 높이 */
+
+    max-width: 1200px;        /* 전체 레이아웃 폭 제한 */
+    margin: 0 auto;           /* 가운데 정렬 */
+}
+
+/* 왼쪽 사이드바 */
+.total-sidebar {
+    width: 240px;             /* 사이드바 살짝 넓게 */
+    background-color: var(--color-sidebar-bg);
+    border-radius: var(--radius-lg);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.total-menu-header {
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.total-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;                  /* 메뉴가 남는 높이를 채워서 쭉 늘어남 */
+}
+
+.total-menu li a {
+    display: block;
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #e0e4ed;
+    text-decoration: none;
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+.total-menu li a:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+/* 선택된 메뉴 */
+.total-menu li.active a {
+    background-color: #004a90;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* 오른쪽 내용 카드 */
+.total-main {
+    flex: 1;
+    border-radius: var(--radius-lg);
+    padding: 22px 26px 26px 26px;
+
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.total-main h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.total-main hr {
+    border: none;
+    border-top: 1px solid #e1e5ef;
+    margin: 10px 0 20px;
+}
+
+.quick-link-list {
+    padding-left: 18px;
+    font-size: 14px;
+}
+
+/* 레이아웃 반응형 */
+@media (max-width: 900px) {
+    .total-layout {
+        flex-direction: column;
+    }
+
+    .total-sidebar {
+        width: 100%;
+    }
+}

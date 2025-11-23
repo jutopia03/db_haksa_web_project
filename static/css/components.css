@@ -1,0 +1,131 @@
+/* ============================================================
+   테이블 공통 스타일
+   ============================================================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    background-color: #ffffff;
+}
+
+table,
+table th,
+table td {
+    border: 1px solid var(--color-border-soft);
+}
+
+table thead {
+    background-color: #f1f4fb;
+}
+
+table th,
+table td {
+    padding: 8px 10px;
+    text-align: left;
+}
+
+table th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   폼 / 인풋 / 버튼 기본
+   ============================================================ */
+form {
+    font-size: 14px;
+}
+
+form label {
+    margin-right: 8px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"] {
+    padding: 6px 8px;
+    border-radius: var(--radius-s);
+    border: 1px solid var(--color-input-border);
+    font-size: 14px;
+    min-width: 120px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 63, 127, 0.18);
+}
+
+/* 일반 버튼 (페이지 공통) */
+button,
+input[type="submit"] {
+    padding: 8px 14px;
+    border-radius: var(--radius-s);
+    border: none;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: var(--color-primary-strong);
+}
+
+/* ============================================================
+   flash 메시지 (공통)
+   ============================================================ */
+main > ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+main > ul li {
+    margin-bottom: 6px;
+    padding: 8px 10px;
+    border-radius: var(--radius-s);
+    background-color: #fff4e5;
+    color: #8a4b06;
+    border: 1px solid #f4c38a;
+    font-size: 13px;
+}
+
+/* 공통 패널(흰 박스) – 로그인 박스, 메인 카드 등에 사용 */
+.login-box,
+.total-main,
+.card {
+    background-color: var(--color-panel-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-panel);
+}
+
+/* 카드 공통 (대시보드 등에서 사용) */
+.card {
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+
+/* 로그인 페이지용 flash (login.html 안에서도 사용) */
+.login-flash {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.login-flash li {
+    padding: 10px 12px;
+    background: #fff4e5;
+    color: #8a4b06;
+    border-radius: 6px;
+    border: 1px solid #f4c38a;
+}

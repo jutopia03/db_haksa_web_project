@@ -1,0 +1,96 @@
+/* ============================================================
+   공통 변수
+   ============================================================ */
+:root {
+    /* Colors */
+    --color-primary: #003f7f;
+    --color-primary-strong: #0056b3;
+    --color-primary-accent: #0074d9;
+    --color-bg: #f5f7fb;
+    --color-sidebar-bg: #2f3a4d;
+    --color-panel-bg: #ffffff;
+    --color-border-soft: #dde3f0;
+    --color-input-border: #c4ccd9;
+    --color-line-soft: #95C4E3;
+    --color-text-main: #222222;
+    --color-text-sub: #6f7b91;
+    --color-link: #0056b3;
+
+    /* Radius */
+    --radius-s: 4px;
+    --radius-m: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Shadow */
+    --shadow-header: 0 2px 6px rgba(0, 0, 0, 0.15);
+    --shadow-panel: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-card: 0 10px 25px rgba(15, 35, 75, 0.06);
+    --shadow-card-strong: 0 14px 30px rgba(15, 35, 75, 0.10);
+    --shadow-login: 0 14px 35px rgba(0,0,0,0.10);
+}
+
+/* ============================================================
+   공통 리셋 / 기본 스타일
+   ============================================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", system-ui, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+}
+
+/* 제목들 */
+h2 {
+    margin-top: 0;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+/* 구분선 */
+hr {
+    border: none;
+    border-top: 1px solid var(--color-border-soft);
+    margin: 14px 0 18px 0;
+}
+
+/* 기본 링크 */
+a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 섹션 간격 */
+section {
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+/* 리스트 기본 */
+main ul {
+    padding-left: 20px;
+}
+
+main li {
+    margin-bottom: 4px;
+}
+
+/* 뒤로가기 링크 등 */
+p a {
+    font-size: 14px;
+}
