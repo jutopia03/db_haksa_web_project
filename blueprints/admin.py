@@ -8,9 +8,9 @@ from flask import (
     flash
 )
 from sqlalchemy import text
-from extensions import db
 from blueprints import login_required, role_required
 from sqlalchemy.exc import IntegrityError
+from extensions import db
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -31,7 +31,7 @@ def _get_current_admin_id():
     row = db.session.execute(sql, {"account_id": account_id}).fetchone()
     if row is None:
         return None
-    return row.accout_id
+    return row.account_id
 
 # 0) /admin/home → /admin/dashboard 로 보내기
 @admin_bp.route("/home")
@@ -40,11 +40,13 @@ def _get_current_admin_id():
 def home():
     return redirect(url_for("admin.dashboard"))
 
+
+#================================================================================
 # 4-1. 어드민 대시보드: /admin/dashboard
 @admin_bp.route("/dashboard")
 @login_required
 @role_required("admin")
-def admin_dashboard():
+def dashboard():
     
     student_count = db.session.execute(text("SELECT COUNT(*) FROM student")).scalar()
     professor_count = db.session.execute(text("SELECT COUNT(*) FROM professor")).scalar()
@@ -59,6 +61,8 @@ def admin_dashboard():
         enrollment_count=enrollment_count,
     )
 
+
+#================================================================================
 # 4-2. 학생 관리: admin/students
 @admin_bp.route("/students")
 @login_required
@@ -131,28 +135,42 @@ def students():
     )
 
 # 4-2-1. 학생 관리 (추가): admin/students/new
-@admin_bp.route("/students/new", methods = ["GET", "POST"])
+@admin_bp.route("/students/new", methods=["GET", "POST"])
 @login_required
 @role_required("admin")
-def students_new():
+def student_new(): 
     admin_id = _get_current_admin_id()
     if admin_id is None:
         flash("관리자 정보를 찾을 수 없습니다.")
         return redirect(url_for("auth.login"))
-    
+
     if request.method == "POST":
-        student_id = request.form.get("student_id")
+        student_id   = request.form.get("student_id")
         student_name = request.form.get("student_name")
-        dept_id = request.form.get("dept_id")
-        grade_level = request.form.get("grade_level")
-        phone = request.form.get("phone")
+        dept_id      = request.form.get("dept_id")
+        grade_level  = request.form.get("grade_level")
+        phone        = request.form.get("phone")
 
         if not student_id or not student_name or not dept_id:
             flash("학번, 이름, 학과는 필수입니다.")
             return redirect(url_for("admin.student_new"))
-        
-        insert_sql = text(
-            """
+
+        # 🔥 학번 중복 체크
+        exists_sql = text("""
+            SELECT COUNT(*) 
+            FROM student
+            WHERE student_id = :student_id
+        """)
+        exists = db.session.execute(
+            exists_sql, {"student_id": student_id}
+        ).scalar()
+
+        if exists > 0:
+            flash(f"이미 존재하는 학번입니다. (학번: {student_id})")
+            return redirect(url_for("admin.student_new"))
+        # -----------------------------
+
+        insert_sql = text("""
             INSERT INTO student (
                 student_id,
                 student_name,
@@ -166,8 +184,7 @@ def students_new():
                 :grade_level,
                 :phone
             )
-            """
-        )
+        """)
 
         db.session.execute(
             insert_sql,
@@ -183,17 +200,15 @@ def students_new():
 
         flash("학생이 성공적으로 등록되었습니다.")
         return redirect(url_for("admin.students"))
-    
-    dept_sql = text(
-        """
+
+    dept_sql = text("""
         SELECT dept_id, dept_name
         FROM department
         ORDER BY dept_name
-        """
-    )
+    """)
     depts = db.session.execute(dept_sql).fetchall()
 
-    return render_template("admin/students_new.html", depts=depts)
+    return render_template("admin/student_new.html", depts=depts)
 
 # 4-2-2. 학생 관리 (수정): admin/students/<id>/edit
 @admin_bp.route("/students/<student_id>/edit", methods=["GET", "POST"])
@@ -325,6 +340,8 @@ def student_detail(student_id):
         courses=courses
     )
 
+
+#================================================================================
 # 4-3. 교수 관리: admin/professors
 @admin_bp.route("/professors")
 @login_required
@@ -381,7 +398,17 @@ def professor_new():
         hire_date = request.form.get("hire_date")  # 'YYYY-MM-DD' 문자열
 
         if not professor_id or not professor_name or not dept_id:
-            flash("교수번호, 이름, 학과는 필수입니다.")
+            flash("교수 번호이름, 학과는 필수입니다.")
+            return redirect(url_for("admin.professor_new"))
+        
+        exists_sql = text("""
+            SELECT COUNT(*) FROM professor
+            WHERE professor_id = :professor_id
+        """)
+        exists = db.session.execute(exists_sql, {"professor_id": professor_id}).scalar()
+
+        if exists > 0:
+            flash(f"이미 존재하는 교수번호입니다. (교수번호: {professor_id})")
             return redirect(url_for("admin.professor_new"))
 
         insert_sql = text("""
@@ -550,6 +577,8 @@ def professor_detail(professor_id):
         courses=courses
     )
 
+
+#================================================================================
 # 4-4. 학과 관리: admin/departments
 @admin_bp.route("/departments")
 @login_required
@@ -685,6 +714,8 @@ def department_delete(dept_id):
 
     return redirect(url_for("admin.departments"))
 
+
+#================================================================================
 # 4-5. 강좌 관리: admin/courses
 @admin_bp.route("/courses")
 @login_required
@@ -922,6 +953,8 @@ def course_delete(course_id):
 
     return redirect(url_for("admin.courses"))
 
+
+#================================================================================
 # 4-6. 수강 내역 관리 : admin/enrollments
 @admin_bp.route("/enrollments")
 @login_required
@@ -1174,6 +1207,8 @@ def enrollment_delete(enrollment_id):
     flash("수강내역이 삭제되었습니다.")
     return redirect(url_for("admin.enrollments"))
   
+
+#================================================================================
 # 4.7. 계정 관리: admin/accounts
 @admin_bp.route("/accounts")
 @login_required

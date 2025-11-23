@@ -43,7 +43,7 @@ def login():
     elif user.role == "professor":
         return redirect(url_for("prof.dashboard"))
     elif user.role == "admin":
-        return "관리자 로그인 성공! (admin/home 나중에 구현)"
+        return redirect(url_for("admin.dashboard"))
     else:
         flash("알 수 없는 권한입니다.")
         return redirect(url_for("auth.login"))

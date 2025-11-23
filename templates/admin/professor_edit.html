@@ -1,0 +1,50 @@
+<!-- templates/admin/professor_edit.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>교수 수정</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+<nav class="mb-3">
+    <a href="{{ url_for('admin.professors') }}" class="btn btn-outline-secondary btn-sm">← 교수 목록</a>
+</nav>
+
+<h1>교수 수정 - {{ professor.professor_id }}</h1>
+
+<form method="post" class="mt-3">
+    <div class="mb-3">
+        <label class="form-label">이름</label>
+        <input type="text" name="professor_name" class="form-control" value="{{ professor.professor_name }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">학과</label>
+        <select name="dept_id" class="form-select">
+            {% for d in depts %}
+            <option value="{{ d.dept_id }}" {% if d.dept_id == professor.dept_id %}selected{% endif %}>
+                {{ d.dept_name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">직급</label>
+        <input type="text" name="position" class="form-control" value="{{ professor.position }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">전화번호</label>
+        <input type="text" name="phone" class="form-control" value="{{ professor.phone }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">연구실</label>
+        <input type="text" name="office" class="form-control" value="{{ professor.office }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">임용일</label>
+        <input type="date" name="hire_date" class="form-control" value="{{ professor.hire_date }}">
+    </div>
+    <button class="btn btn-primary" type="submit">저장</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!-- templates/admin/professor_detail.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>교수 상세</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+<nav class="mb-3">
+    <a href="{{ url_for('admin.professors') }}" class="btn btn-outline-secondary btn-sm">← 교수 목록</a>
+</nav>
+
+<h1>교수 상세 - {{ professor.professor_name }} ({{ professor.professor_id }})</h1>
+
+<div class="mb-4">
+    <ul class="list-group">
+        <li class="list-group-item"><strong>학과:</strong> {{ professor.dept_name }}</li>
+        <li class="list-group-item"><strong>직급:</strong> {{ professor.position }}</li>
+        <li class="list-group-item"><strong>전화번호:</strong> {{ professor.phone }}</li>
+        <li class="list-group-item"><strong>연구실:</strong> {{ professor.office }}</li>
+        <li class="list-group-item"><strong>임용일:</strong> {{ professor.hire_date }}</li>
+    </ul>
+</div>
+
+<h2>담당 강좌</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+    <tr>
+        <th>강좌번호</th>
+        <th>강좌명</th>
+        <th>학점</th>
+        <th>강의실</th>
+        <th>강의시간</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for c in courses %}
+    <tr>
+        <td>{{ c.course_id }}</td>
+        <td>{{ c.course_name }}</td>
+        <td>{{ c.credit }}</td>
+        <td>{{ c.classroom }}</td>
+        <td>{{ c.hours }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
