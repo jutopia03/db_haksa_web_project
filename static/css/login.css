@@ -1,0 +1,145 @@
+/* 로그인 페이지일 때 main 전체를 가로·세로 중앙 정렬 컨테이너로 사용 */
+main:has(.login-wrapper) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    min-height: calc(100vh - 60px); /* 헤더 높이 제외한 화면 전체 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    box-shadow: none;
+}
+
+/* login.html 최상단 래퍼 */
+.login-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* 로그인 박스(카드) */
+.login-box {
+    width: 480px;
+    height: 480px;
+    background: rgba(255,255,255,0.98);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-line-soft);
+    box-shadow: var(--shadow-login);
+    padding: 40px 50px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* 로그인 박스 테두리 강조 */
+.login-box:hover {
+    border-color: #7BB7D8;
+}
+
+/* 로그인 제목(위쪽에 고정) */
+.login-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 40px 0;   /* 아래로 여백 */
+}
+
+/* 아이디/비번 + 버튼 한 줄 */
+.login-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* 왼쪽 입력필드 묶음 */
+.login-fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* 개별 입력 필드 */
+.field {
+    position: relative;
+}
+
+.field input {
+    width: 100%;
+    padding: 10px 12px 10px 38px;  /* 아이콘 들어갈 자리 확보 */
+    border-radius: var(--radius-m);
+    border: 1px solid #9F9F9F;
+    font-size: 14px;
+}
+
+.field input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0,63,127,0.15);
+}
+
+/* 인풋 내부 아이콘 */
+.field-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #727272;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+/* 오른쪽 로그인 버튼(정사각형) */
+.login-side-btn {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #004a90;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-m);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.login-side-btn:hover {
+    background-color: #005bbd;
+}
+
+/* 로그인 레이아웃 중앙정렬 */
+.login-layout {
+    height: calc(100vh - 80px); /* 헤더 제외한 높이 */
+    display: flex;
+    justify-content: center;  /* 가로 중앙 */
+    align-items: center;      /* 세로 중앙 */
+    padding: 0;
+}
+
+.login-layout .page-content {
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+/* 로그인 페이지 배경 */
+body.login-page {
+    background: #b9d8e8 url("/static/img/login_bg.png") no-repeat center;
+    background-size: cover; /* 반응형 */
+}
+
+/* 로그인 페이지에서는 오른쪽(유저명 + 로그아웃) 숨기기 + 로고 중앙 */
+.login-page .topbar-right {
+    display: none;
+}
+
+.login-page .topbar {
+    justify-content: center;
+}

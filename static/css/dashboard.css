@@ -1,0 +1,118 @@
+/* 공통 대시보드(학생/교수) 스타일 */
+.total-main.total-main-dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상단 인사말 */
+.total-main-dashboard .dash-header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2b3d;
+}
+
+.total-main-dashboard .dash-sub {
+    margin: 6px 0 20px 0;
+    font-size: 14px;
+    color: var(--color-text-sub);
+}
+
+/* 카드 영역 (2개 가로 배치) */
+.total-main-dashboard .dash-card-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+/* 카드 */
+.total-main-dashboard .dash-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 16px 18px;
+    border-radius: var(--radius-xl);
+    background: #ffffff;
+    box-shadow: var(--shadow-card);
+
+    transition: 0.22s ease;
+}
+
+/* 카드 아이콘 */
+.total-main-dashboard .dash-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #e7f2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #0050a8;
+}
+
+/* 카드 텍스트 */
+.total-main-dashboard .dash-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2b3d;
+}
+
+.total-main-dashboard .dash-card-desc {
+    font-size: 13px;
+    color: #74819a;
+    margin-top: 2px;
+}
+
+/* 카드 hover 효과 */
+.total-main-dashboard .dash-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-strong);
+}
+
+/* 하단 배너 */
+.total-main-dashboard .dash-banner {
+    margin-top: 4px;
+    padding: 16px 18px;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(90deg, #0050a8, var(--color-primary-accent));
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+
+.total-main-dashboard .dash-banner-label {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.2);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.total-main-dashboard .dash-banner-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.total-main-dashboard .dash-banner-desc {
+    font-size: 13px;
+    opacity: 0.95;
+}
+
+/* 반응형: 화면 좁을 때 카드 세로로 */
+@media (max-width: 900px) {
+    .total-main-dashboard .dash-card-row {
+        flex-direction: column;
+    }
+}
+
+/* 대시보드 플래시 메시지 가리기 */
+.total-main-dashboard .login-flash {
+    display: none !important;
+}
