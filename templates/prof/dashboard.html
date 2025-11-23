@@ -16,7 +16,7 @@
         <a href="{{ url_for('prof.profile') }}">내 정보</a>
       </li>
       <li>
-        <a href="{{ url_for('prof.courses') }}">담당 강좌</a>
+        <a href="{{ url_for('prof.courses') }}">내 강좌 목록</a>
       </li>
     </ul>
   </aside>
@@ -25,19 +25,11 @@
   <section class="total-main total-main-dashboard">
 
     <div class="dash-header">
-      <h2>{{ prof_name }} 교수님 환영합니다</h2>
+      <h2>{{ professor_name }} 교수님 환영합니다</h2>
       <p class="dash-sub">오늘도 좋은 강의 되세요.</p>
     </div>
 
     <div class="dash-card-row">
-      <div class="dash-card">
-        <div class="dash-card-icon">👨‍🏫</div>
-        <div class="dash-card-text">
-          <div class="dash-card-title">담당 강좌</div>
-          <div class="dash-card-desc">이번 학기에 진행 중인 강좌를 확인해보세요.</div>
-        </div>
-      </div>
-
       <div class="dash-card">
         <div class="dash-card-icon">📝</div>
         <div class="dash-card-text">
@@ -45,13 +37,21 @@
           <div class="dash-card-desc">최근 제출된 과제를 확인해보세요.</div>
         </div>
       </div>
+
+      <div class="dash-card">
+        <div class="dash-card-icon">📢</div>
+        <div class="dash-card-text">
+          <div class="dash-card-title">공지사항</div>
+          <div class="dash-card-desc">현재 등록된 공지사항이 없습니다.</div>
+        </div>
+      </div>
     </div>
 
     <div class="dash-banner">
-      <div class="dash-banner-label">알림</div>
+      <div class="dash-banner-label">TIP</div>
       <div class="dash-banner-text">
-        <div class="dash-banner-title">새 공지사항을 등록해보세요.</div>
-        <div class="dash-banner-desc">수업 자료와 공지를 등록할 수 있습니다.</div>
+        <div class="dash-banner-title">{{ professor_name }} 교수님, 오늘도 좋은 강의 되세요.</div>
+        <div class="dash-banner-desc">대시보드를 자주 확인하면 최근 제출된 과제를 확인할 수 있습니다.</div>
       </div>
     </div>
 
