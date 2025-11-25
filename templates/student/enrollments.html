@@ -1,48 +1,60 @@
 {% extends "base.html" %}
 
 {% block title %}내 수강내역 / 성적{% endblock %}
+{% block layout %}total-layout{% endblock %}
 
-{% block content %}
-<div class="total-layout">
-
-  <!-- 왼쪽 사이드바 -->
-  <aside class="total-sidebar">
+{% block sidebar %}
+<aside class="total-sidebar">
     <div class="total-menu-header">메뉴</div>
     <ul class="total-menu">
-      <li>
-        <a href="{{ url_for('student.dashboard') }}">대시보드</a>
-      </li>
-      <li>
-        <a href="{{ url_for('student.profile') }}">내 정보</a>
-      </li>
-      <li class="active">
-        <a href="{{ url_for('student.enrollments') }}">수강내역</a>
-      </li>
+        <li><a href="{{ url_for('student.dashboard') }}">대시보드</a></li>
+        <li><a href="{{ url_for('student.profile') }}">내 정보</a></li>
+        <li class="active"><a href="{{ url_for('student.enrollments') }}">수강내역</a></li>
     </ul>
-  </aside>
+</aside>
+{% endblock %}
 
-  <!-- 오른쪽 본문 -->
-  <section class="total-main">
+{% block content %}
+<section class="total-main">
+
     <h2>내 수강내역 / 성적</h2>
     <hr>
 
-    <!-- 필터 폼 -->
-    <form method="get" style="margin-bottom: 16px;">
-      <label>
-        연도:
-        <input type="number" name="year" value="{{ selected_year or '' }}" placeholder="예: 2024">
-      </label>
-      <label style="margin-left: 8px;">
-        학기:
-        <input type="number" name="semester" value="{{ selected_semester or '' }}" placeholder="예: 1">
-      </label>
-      <button type="submit">조회</button>
-      <a href="{{ url_for('student.enrollments') }}">전체 보기</a>
-    </form>
+    <!-- 검색 영역 전체 (왼쪽 검색 + 오른쪽 전체보기 버튼) -->
+    <div class="search-wrapper">
+
+        <!-- 왼쪽: 연도 / 학기 / 조회 -->
+        <form method="get" class="search-left">
+            <input type="number"
+                   name="year"
+                   value="{{ selected_year or '' }}"
+                   class="form-control search-input"
+                   placeholder="년도">
+
+            <input type="number"
+                   name="semester"
+                   value="{{ selected_semester or '' }}"
+                   class="form-control search-input"
+                   placeholder="학기">
+
+            <button type="submit" class="btn btn-primary search-btn">
+                조회
+            </button>
+        </form>
+
+        <!-- 오른쪽: 전체 보기 버튼 -->
+        <div class="search-right">
+            <a href="{{ url_for('student.enrollments') }}"
+               class="btn btn-secondary search-btn">
+                전체 보기
+            </a>
+        </div>
+    </div>
+
 
     {% if enrollments and enrollments|length > 0 %}
-      <table border="1" cellpadding="8">
-        <thead>
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
           <tr>
             <th>연도</th>
             <th>학기</th>
@@ -71,18 +83,5 @@
       <p>조회된 수강내역이 없습니다.</p>
     {% endif %}
 
-    <!-- flash 메시지 -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="login-flash">
-          {% for msg in messages %}
-            <li>{{ msg }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
-  </section>
-
-</div>
+</section>
 {% endblock %}

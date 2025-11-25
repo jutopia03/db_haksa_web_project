@@ -1,27 +1,37 @@
-<!-- templates/admin/students.html -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>학생 관리</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="p-4">
-<nav class="mb-3">
-    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">← 대시보드</a>
-</nav>
+{% extends "base.html" %}
 
-<h1>학생 관리</h1>
+{% block title %}학생 관리{% endblock %}
 
-<form class="row g-2 mb-3" method="get">
-    <div class="col-md-3">
-        <input type="text" name="name" value="{{ search_name }}" class="form-control" placeholder="이름">
-    </div>
-    <div class="col-md-3">
-        <input type="text" name="student_id" value="{{ search_student_id }}" class="form-control" placeholder="학번">
-    </div>
-    <div class="col-md-3">
-        <select name="dept_id" class="form-select">
+{% block layout %}total-layout{% endblock %}
+
+{% block sidebar %}
+<div class="total-sidebar">
+    <div class="total-menu-header">메뉴</div>
+    <ul class="total-menu">
+        <li><a href="{{ url_for('admin.dashboard') }}">대시보드</a></li>
+        <li class="active"><a href="{{ url_for('admin.students') }}">학생 관리</a></li>
+        <li><a href="{{ url_for('admin.professors') }}">교수 관리</a></li>
+        <li><a href="{{ url_for('admin.departments') }}">학과 관리</a></li>
+        <li><a href="{{ url_for('admin.courses') }}">강좌 관리</a></li>
+        <li><a href="{{ url_for('admin.enrollments') }}">수강내역 관리</a></li>
+        <li><a href="{{ url_for('admin.accounts') }}">계정 관리</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="total-main">
+
+    <h2>학생 관리</h2>
+    <p class="mb-3">학생 정보를 조회하고 관리할 수 있습니다.</p>
+
+    
+<!-- 검색 영역 전체를 flex로 감싸기 -->
+<div class="search-wrapper">
+
+    <!-- 왼쪽: 검색 입력들 -->
+    <form class="search-left" method="get">
+        <select name="dept_id" class="form-select search-input">
             <option value="">학과 전체</option>
             {% for d in depts %}
             <option value="{{ d.dept_id }}" {% if search_dept_id|int == d.dept_id %}selected{% endif %}>
@@ -29,42 +39,79 @@
             </option>
             {% endfor %}
         </select>
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-primary" type="submit">검색</button>
-        <a href="{{ url_for('admin.student_new') }}" class="btn btn-success">학생 등록</a>
-    </div>
-</form>
+        
+        <input type="text" name="name" value="{{ search_name }}" 
+               class="form-control search-input" placeholder="이름 검색">
 
-<table class="table table-bordered table-hover">
-    <thead class="table-light">
-    <tr>
-        <th>학번</th>
-        <th>이름</th>
-        <th>학과</th>
-        <th>학년</th>
-        <th>전화번호</th>
-        <th>액션</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for s in students %}
-    <tr>
-        <td>{{ s.student_id }}</td>
-        <td>{{ s.student_name }}</td>
-        <td>{{ s.dept_name }}</td>
-        <td>{{ s.grade_level }}</td>
-        <td>{{ s.phone }}</td>
-        <td>
-            <a href="{{ url_for('admin.student_detail', student_id=s.student_id) }}" class="btn btn-sm btn-info">상세</a>
-            <a href="{{ url_for('admin.student_edit', student_id=s.student_id) }}" class="btn btn-sm btn-warning">수정</a>
-            <form action="{{ url_for('admin.student_delete', student_id=s.student_id) }}" method="post" style="display:inline-block" onsubmit="return confirm('삭제할까요?');">
-                <button class="btn btn-sm btn-danger" type="submit">삭제</button>
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-</body>
-</html>
+        <input type="text" name="student_id" value="{{ search_student_id }}" 
+               class="form-control search-input" placeholder="학번 검색">
+
+        <button class="btn btn-primary search-btn" type="submit">검색</button>
+    </form>
+
+    <!-- 오른쪽: 학생 등록 버튼 -->
+    <div class="search-right">
+        <button
+            type="button"
+            class="btn btn-success search-btn"
+            onclick="openCenteredPopup('{{ url_for('admin.student_new') }}', 600, 700)">
+            학생 등록
+        </button>
+    </div>
+</div>
+
+    <!-- 테이블 -->
+    <table class="table table-bordered table-hover bg-white shadow-sm">
+        <thead class="table-light">
+            <tr>
+                <th>학번</th>
+                <th>이름</th>
+                <th>학과</th>
+                <th>학년</th>
+                <th>전화번호</th>
+                <th class="table-manage-col">관리</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for s in students %}
+            <tr>
+                <td>{{ s.student_id }}</td>
+                <td>{{ s.student_name }}</td>
+                <td>{{ s.dept_name }}</td>
+                <td>{{ s.grade_level }}</td>
+                <td>{{ s.phone }}</td>
+
+                <td>
+                    <div class="action-btns">
+                        <!-- 상세 버튼 -->
+                        <button
+                            type="button"
+                            class="btn btn-info btn-sm"
+                            onclick="openCenteredPopup('{{ url_for('admin.student_detail', student_id=s.student_id) }}', 600, 700)">
+                            상세
+                        </button>
+
+                        <!-- 수정 버튼 -->
+                        <button
+                            type="button"
+                            class="btn btn-warning btn-sm"
+                            onclick="openCenteredPopup('{{ url_for('admin.student_edit', student_id=s.student_id) }}', 600, 700)">
+                            수정
+                        </button>
+
+                        <!-- 삭제 버튼 -->
+                        <form action="{{ url_for('admin.student_delete', student_id=s.student_id) }}"
+                            method="post"
+                            onsubmit="return confirm('삭제할까요?');">
+                            <button class="btn btn-danger btn-sm" type="submit">삭제</button>
+                        </form>
+                    </div>
+                </td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

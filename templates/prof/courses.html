@@ -1,86 +1,82 @@
 {% extends "base.html" %}
 
 {% block title %}내 강좌 목록{% endblock %}
+{% block layout %}total-layout{% endblock %}
 
-{% block content %}
-<div class="total-layout">
-
-  <!-- 왼쪽 사이드바 -->
-  <aside class="total-sidebar">
+{% block sidebar %}
+<aside class="total-sidebar">
     <div class="total-menu-header">메뉴</div>
     <ul class="total-menu">
-      <li>
-        <a href="{{ url_for('prof.dashboard') }}">대시보드</a>
-      </li>
-      <li>
-        <a href="{{ url_for('prof.profile') }}">내 정보</a>
-      </li>
-      <!-- ★ 이 페이지가 '내 강좌 목록' 이니까 여기만 active -->
-      <li class="active">
-        <a href="{{ url_for('prof.courses') }}">내 강좌 목록</a>
-      </li>
+        <li><a href="{{ url_for('prof.dashboard') }}">대시보드</a></li>
+        <li><a href="{{ url_for('prof.profile') }}">내 정보</a></li>
+        <li class="active"><a href="{{ url_for('prof.courses') }}">내 강좌 목록</a></li>
     </ul>
-  </aside>
+</aside>
+{% endblock %}
 
-  <!-- 오른쪽 본문 -->
-  <section class="total-main">
+{% block content %}
+<section class="total-main">
+
     <h2>내 강좌 목록</h2>
+    <p class="page-description">교수님이 담당하고 있는 강좌 목록입니다.</p>
 
     {% if courses and courses|length > 0 %}
-      <table border="1" cellpadding="8">
-        <thead>
-          <tr>
-            <th>강좌번호</th>
-            <th>강좌명</th>
-            <th>개설학과</th>
-            <th>강의시간</th>
-            <th>강의실</th>
-            <th>수강 학생</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for c in courses %}
-            <tr>
-              <td>{{ c.course_id }}</td>
-              <td>{{ c.course_name }}</td>
-              <td>{{ c.dept_name }}</td>
-              <td>{{ c.hours }}</td>
-              <td>{{ c.classroom }}</td>
-              <td>
-                <a href="{{ url_for('prof.course_students', course_id=c.course_id) }}"
-                  onclick="
-                        const w = 1000;
-                        const h = 700;
-                        const left = (window.screen.width - w) / 2;
-                        const top = (window.screen.height - h) / 2;
-                        window.open(
-                            this.href,
-                            'students_popup',
-                            `width=${w},height=${h},left=${left},top=${top},scrollbars=yes`
-                        );
-                        return false;
-                  ">
-                  수강 학생 보기
-                </a>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="table-card">
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>강좌번호</th>
+                    <th>강좌명</th>
+                    <th>개설학과</th>
+                    <th>강의시간</th>
+                    <th>강의실</th>
+                    <th>수강 학생</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in courses %}
+                <tr>
+                    <td>{{ c.course_id }}</td>
+                    <td>{{ c.course_name }}</td>
+                    <td>{{ c.dept_name }}</td>
+                    <td>{{ c.hours }}</td>
+                    <td>{{ c.classroom }}</td>
+                    <td>
+                        <a href="{{ url_for('prof.course_students', course_id=c.course_id) }}"
+                           class="table-link"
+                           onclick="
+                                const w = 1000;
+                                const h = 700;
+                                const left = (window.screen.width - w) / 2;
+                                const top = (window.screen.height - h) / 2;
+                                window.open(
+                                    this.href,
+                                    'students_popup',
+                                    `width=${w},height=${h},left=${left},top=${top},scrollbars=yes`
+                                );
+                                return false;
+                           ">
+                            수강 학생 보기
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% else %}
-      <p>담당하고 있는 강좌가 없습니다.</p>
+        <p>담당하고 있는 강좌가 없습니다.</p>
     {% endif %}
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <ul>
+        <ul class="login-flash mt-3">
           {% for msg in messages %}
             <li>{{ msg }}</li>
           {% endfor %}
         </ul>
       {% endif %}
     {% endwith %}
-  </section>
 
-</div>
+</section>
 {% endblock %}

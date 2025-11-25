@@ -1,92 +1,67 @@
 {% extends "base.html" %}
 
 {% block title %}교수 정보{% endblock %}
+{% block layout %}total-layout{% endblock %}
 
-{% block content %}
-<div class="total-layout">
-
-  <!-- 왼쪽 사이드바 -->
-  <aside class="total-sidebar">
+{% block sidebar %}
+<aside class="total-sidebar">
     <div class="total-menu-header">메뉴</div>
     <ul class="total-menu">
-      <li>
-        <a href="{{ url_for('prof.dashboard') }}">대시보드</a>
-      </li>
-      <li class="active">
-        <a href="{{ url_for('prof.profile') }}">내 정보</a>
-      </li>
-      <li>
-        <a href="{{ url_for('prof.courses') }}">내 강좌 목록</a>
-      </li>
+        <li><a href="{{ url_for('prof.dashboard') }}">대시보드</a></li>
+        <li class="active"><a href="{{ url_for('prof.profile') }}">내 정보</a></li>
+        <li><a href="{{ url_for('prof.courses') }}">내 강좌 목록</a></li>
     </ul>
-  </aside>
+</aside>
+{% endblock %}
 
-  <!-- 오른쪽 본문 -->
-  <section class="total-main">
+{% block content %}
+<section class="total-main">
+
     <h2>내 정보</h2>
-    <hr>
+    <p class="page-description">교수님의 기본 정보를 확인할 수 있습니다.</p>
 
-    <table border="1" cellpadding="8">
-      <tbody>
-        <tr>
-          <th>교수번호</th>
-          <td>{{ professor.professor_id }}</td>
-        </tr>
-        <tr>
-          <th>이름</th>
-          <td>{{ professor.name }}</td>
-        </tr>
-        <tr>
-          <th>직급</th>
-          <td>{{ professor.position }}</td>
-        </tr>
-        <tr>
-          <th>소속 학과</th>
-          <td>{{ professor.department_name }}</td>
-        </tr>
-        <tr>
-          <th>연락처</th>
-          <td>{{ professor.phone }}</td>
-        </tr>
-        <tr>
-          <th>이메일</th>
-          <td>
-            {% if professor.email %}
-              {{ professor.email }}
-            {% else %}
-              이메일 정보가 없습니다.
-            {% endif %}
-          </td>
-        </tr>
-        <tr>
-          <th>연구실</th>
-          <td>{{ professor.office }}</td>
-        </tr>
-        <tr>
-          <th>주소</th>
-          <td>
-            {% if professor.address %}
-              {{ professor.address }}
-            {% else %}
-              주소 정보가 없습니다.
-            {% endif %}
-          </td>
-        </tr>
-        <tr>
-          <th>학과 사무실</th>
-          <td>{{ professor.dept_office }}</td>
-        </tr>
-        <tr>
-          <th>학과 전화</th>
-          <td>{{ professor.dept_phone }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="info-card">
+        <table class="info-table">
+            <tbody>
+                <tr><th>교수번호</th><td>{{ professor.professor_id }}</td></tr>
+                <tr><th>이름</th><td>{{ professor.name }}</td></tr>
+                <tr><th>직급</th><td>{{ professor.position }}</td></tr>
+                <tr><th>소속 학과</th><td>{{ professor.department_name }}</td></tr>
+                <tr><th>연락처</th><td>{{ professor.phone }}</td></tr>
 
-    <!-- flash 메시지 -->
+                <tr>
+                    <th>이메일</th>
+                    <td>
+                        {% if professor.email %}
+                            {{ professor.email }}
+                        {% else %}
+                            이메일 정보가 없습니다.
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr><th>연구실</th><td>{{ professor.office }}</td></tr>
+
+                <tr>
+                    <th>주소</th>
+                    <td>
+                        {% if professor.address %}
+                            {{ professor.address }}
+                        {% else %}
+                            주소 정보가 없습니다.
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr><th>학과 사무실</th><td>{{ professor.dept_office }}</td></tr>
+                <tr><th>학과 전화</th><td>{{ professor.dept_phone }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <ul>
+        <ul class="login-flash mt-3">
           {% for msg in messages %}
             <li>{{ msg }}</li>
           {% endfor %}
@@ -94,7 +69,5 @@
       {% endif %}
     {% endwith %}
 
-  </section>
-
-</div>
+</section>
 {% endblock %}

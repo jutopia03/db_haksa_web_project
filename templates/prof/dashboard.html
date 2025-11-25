@@ -1,58 +1,65 @@
 {% extends "base.html" %}
 
 {% block title %}교수 대시보드{% endblock %}
+{% block layout %}total-layout{% endblock %}
 
-{% block content %}
-<div class="total-layout">
-
-  <!-- 왼쪽 사이드바 -->
-  <aside class="total-sidebar">
+{% block sidebar %}
+<aside class="total-sidebar">
     <div class="total-menu-header">메뉴</div>
     <ul class="total-menu">
-      <li class="active">
-        <a href="{{ url_for('prof.dashboard') }}">대시보드</a>
-      </li>
-      <li>
-        <a href="{{ url_for('prof.profile') }}">내 정보</a>
-      </li>
-      <li>
-        <a href="{{ url_for('prof.courses') }}">내 강좌 목록</a>
-      </li>
+        <li class="active">
+            <a href="{{ url_for('prof.dashboard') }}">대시보드</a>
+        </li>
+        <li>
+            <a href="{{ url_for('prof.profile') }}">내 정보</a>
+        </li>
+        <li>
+            <a href="{{ url_for('prof.courses') }}">내 강좌 목록</a>
+        </li>
     </ul>
-  </aside>
+</aside>
+{% endblock %}
 
-  <!-- 오른쪽 본문: 교수용 대시보드 -->
-  <section class="total-main total-main-dashboard">
+{% block content %}
+<section class="total-main total-main-dashboard dashboard-two-cols">
 
     <div class="dash-header">
-      <h2>{{ professor_name }} 교수님 환영합니다</h2>
-      <p class="dash-sub">오늘도 좋은 강의 되세요.</p>
+        <h2>{{ professor_name }} 교수님 환영합니다</h2>
+        <p class="dash-sub">오늘도 좋은 강의 되세요.</p>
     </div>
 
-    <div class="dash-card-row">
-      <div class="dash-card">
-        <div class="dash-card-icon">📝</div>
-        <div class="dash-card-text">
-          <div class="dash-card-title">제출된 과제</div>
-          <div class="dash-card-desc">최근 제출된 과제를 확인해보세요.</div>
-        </div>
-      </div>
+    <div class="dash-card-row dash-card-row-2">
+        <!-- 내 정보 -->
+        <a href="{{ url_for('prof.profile') }}" class="dash-card dash-card-link">
+            <div class="dash-card-icon">
+                👤
+            </div>
+            <div class="dash-card-text">
+                <div class="dash-card-title">내 정보</div>
+                <div class="dash-card-desc">내 정보를 확인합니다.</div>
+            </div>
+        </a>
 
-      <div class="dash-card">
-        <div class="dash-card-icon">📢</div>
-        <div class="dash-card-text">
-          <div class="dash-card-title">공지사항</div>
-          <div class="dash-card-desc">현재 등록된 공지사항이 없습니다.</div>
-        </div>
-      </div>
+        <!-- 내 강좌 목록 -->
+        <a href="{{ url_for('prof.courses') }}" class="dash-card dash-card-link">
+            <div class="dash-card-icon">
+                📚
+            </div>
+            <div class="dash-card-text">
+                <div class="dash-card-title">내 강좌 목록</div>
+                <div class="dash-card-desc">내 강좌 목록을 확인합니다.</div>
+            </div>
+        </a>
     </div>
 
     <div class="dash-banner">
-      <div class="dash-banner-label">TIP</div>
-      <div class="dash-banner-text">
-        <div class="dash-banner-title">{{ professor_name }} 교수님, 오늘도 좋은 강의 되세요.</div>
-        <div class="dash-banner-desc">대시보드를 자주 확인하면 최근 제출된 과제를 확인할 수 있습니다.</div>
-      </div>
+        <div class="dash-banner-label">TIP</div>
+        <div class="dash-banner-text">
+            <div class="dash-banner-title">{{ professor_name }} 교수님, 좋은 하루 되세요.</div>
+            <div class="dash-banner-desc">
+                대시보드를 자주 확인하면 학생 과제 현황을 빠르게 파악할 수 있습니다.
+            </div>
+        </div>
     </div>
 
     {% with messages = get_flashed_messages() %}
@@ -65,7 +72,5 @@
       {% endif %}
     {% endwith %}
 
-  </section>
-
-</div>
+</section>
 {% endblock %}

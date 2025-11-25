@@ -52,6 +52,7 @@ def dashboard():
     professor_count = db.session.execute(text("SELECT COUNT(*) FROM professor")).scalar()
     course_count = db.session.execute(text("SELECT COUNT(*) FROM course")).scalar()
     enrollment_count = db.session.execute(text("SELECT COUNT(*) FROM enrollment")).scalar()
+    account_count = db.session.execute(text("SELECT COUNT(*) FROM account")).scalar()
 
     return render_template(
         "admin/dashboard.html",
@@ -59,6 +60,7 @@ def dashboard():
         professor_count=professor_count,
         course_count=course_count,
         enrollment_count=enrollment_count,
+        account_count=account_count
     )
 
 

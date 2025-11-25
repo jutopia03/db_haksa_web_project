@@ -37,6 +37,17 @@
     </section>
 
 </div>
+<script>
+  function openCenteredPopup(url, w, h) {
+    const left = (window.screen.width  - w) / 2;
+    const top  = (window.screen.height - h) / 2;
 
+    window.open(
+      url,
+      'popup',
+      `width=${w},height=${h},left=${left},top=${top},scrollbars=yes`
+    );
+  }
+</script>
 </body>
 </html>
