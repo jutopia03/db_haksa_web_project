@@ -7,9 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="p-4">
-<nav class="mb-3">
-    <a href="{{ url_for('admin.departments') }}" class="btn btn-outline-secondary btn-sm">← 학과 목록</a>
-</nav>
 
 <h1>학과 수정 - {{ dept.dept_id }}</h1>
 
@@ -22,7 +19,9 @@
         <label class="form-label">전화번호</label>
         <input type="text" name="phone" class="form-control" value="{{ dept.phone }}">
     </div>
-    <button class="btn btn-primary" type="submit">저장</button>
+    <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-primary" type="submit">저장</button>
+    </div>
 </form>
 </body>
 </html>

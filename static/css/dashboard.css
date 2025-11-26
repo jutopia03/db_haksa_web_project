@@ -1,7 +1,9 @@
-/* 공통 대시보드(학생/교수) 스타일 */
+/* ===== 대시보드 공통 ===== */
 .total-main.total-main-dashboard {
+    margin-top: 24px;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 /* 상단 인사말 */
@@ -18,38 +20,50 @@
     color: var(--color-text-sub);
 }
 
-/* 카드 영역 (2개 가로 배치) */
+/* 카드 묶음 기본 */
 .total-main-dashboard .dash-card-row {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 18px;
+    display: grid;
+    gap: 24px;
+    margin-bottom: 26px;
+    justify-content: center;   /* 카드 전체를 가운데 정렬 */
 }
 
-/* 카드 */
+/* 관리자: 카드 5개 기준 (큰 화면) */
+.total-main-dashboard .dash-card-row-5 {
+    grid-template-columns: repeat(5, minmax(180px, 1fr));
+}
+
+/* 학생/교수: 카드 2개 기준 (큰 화면) */
+.total-main-dashboard .dash-card-row-2 {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+}
+
+/* 카드 하나 */
 .total-main-dashboard .dash-card {
-    flex: 1;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 18px;
 
-    padding: 16px 18px;
+    padding: 20px 24px;
     border-radius: var(--radius-xl);
     background: #ffffff;
     box-shadow: var(--shadow-card);
 
+    text-decoration: none;
+    color: inherit;
     transition: 0.22s ease;
 }
 
 /* 카드 아이콘 */
 .total-main-dashboard .dash-card-icon {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     border-radius: 14px;
     background: #e7f2ff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 30px;
     color: #0050a8;
 }
 
@@ -58,6 +72,7 @@
     font-size: 15px;
     font-weight: 600;
     color: #1f2b3d;
+    white-space: nowrap;
 }
 
 .total-main-dashboard .dash-card-desc {
@@ -66,7 +81,7 @@
     margin-top: 2px;
 }
 
-/* 카드 hover 효과 */
+/* hover 효과 */
 .total-main-dashboard .dash-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-card-strong);
@@ -105,14 +120,34 @@
     opacity: 0.95;
 }
 
-/* 반응형: 화면 좁을 때 카드 세로로 */
-@media (max-width: 900px) {
-    .total-main-dashboard .dash-card-row {
-        flex-direction: column;
+/* ===== 반응형 정렬 규칙 ===== */
+
+/* 1300px 이하: 관리자 4개, 학생/교수 그대로 2개 */
+@media (max-width: 1300px) {
+    .total-main-dashboard .dash-card-row-5 {
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
     }
 }
 
-/* 대시보드 플래시 메시지 가리기 */
-.total-main-dashboard .login-flash {
-    display: none !important;
+/* 1100px 이하: 관리자 3개, 학생/교수 2개 */
+@media (max-width: 1100px) {
+    .total-main-dashboard .dash-card-row-5 {
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+    }
+}
+
+/* 900px 이하: 관리자/학생/교수 모두 2개 */
+@media (max-width: 900px) {
+    .total-main-dashboard .dash-card-row-5,
+    .total-main-dashboard .dash-card-row-2 {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+    }
+}
+
+/* 600px 이하: 전부 1열 */
+@media (max-width: 600px) {
+    .total-main-dashboard .dash-card-row-5,
+    .total-main-dashboard .dash-card-row-2 {
+        grid-template-columns: 1fr;
+    }
 }

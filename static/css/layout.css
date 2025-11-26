@@ -68,11 +68,12 @@ header.topbar {
 }
 
 /* 메인 컨테이너 (학생/교수/관리자 공통 기본) */
+/* 메인 컨테이너 (학생/교수/관리자 공통 기본) */
 main {
     width: 100%;
     max-width: none;
-    margin: 16px 0 32px 0;      /* 헤더 아래 여백 */
-    padding: 0 24px 24px 24px;  /* 좌우·아래 여백 */
+    margin: 16px 0 32px 0;
+    padding: 0 24px 24px 0;    /* 왼쪽 패딩: 0으로 */
     background: none;
     border-radius: 0;
     box-shadow: none;
@@ -82,24 +83,30 @@ main {
 .total-layout {
     display: flex;
     gap: 16px;
-    align-items: stretch;     /* 양쪽 높이 동일하게 */
-    min-height: 450px;        /* 전체 카드 기본 높이 */
+    align-items: stretch;
+    min-height: 450px;
 
-    max-width: 1200px;        /* 전체 레이아웃 폭 제한 */
-    margin: 0 auto;           /* 가운데 정렬 */
+    width: 100%;          /* 화면 전체 사용 */
+    max-width: none;      /* 가운데 정렬 제거 */
+    margin: 0;            /* 좌우 여백 제거 */
 }
+
 
 /* 왼쪽 사이드바 */
 .total-sidebar {
-    width: 240px;             /* 사이드바 살짝 넓게 */
+    margin-top: 24px;
+    width: 240px;
     background-color: var(--color-sidebar-bg);
-    border-radius: var(--radius-lg);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;  /* 왼쪽은 0, 오른쪽만 둥글게 */
     color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.18);
 
     display: flex;
     flex-direction: column;
+
+    min-height: calc(100vh - 300px);
 }
+
 
 .total-menu-header {
     padding: 14px 20px;
@@ -162,6 +169,18 @@ main {
     font-size: 14px;
 }
 
+.page-content {
+    width: 100%;
+    max-width: 1200px;   /* 너가 원하는 폭 */
+    margin: 0 auto;      /* 화면 가운데 정렬 */
+    padding: 44px 16px;
+}
+
+.table-manage-col {
+    width: 200px;      /* 원하는 크기 (100~160px 추천) */
+    white-space: nowrap;  /* 버튼 줄바꿈 방지 */
+}
+
 /* 레이아웃 반응형 */
 @media (max-width: 900px) {
     .total-layout {
@@ -169,6 +188,48 @@ main {
     }
 
     .total-sidebar {
-        width: 100%;
+        width: 80%;
+        max-width: 320px;
+        min-height: auto;
+        height: auto;
+        border-radius: var(--radius-lg);
     }
+}
+
+/* 검색 영역 전체 */
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    /* 화면이 좁을 때만 줄바꿈 허용 */
+    flex-wrap: wrap;
+}
+
+/* 왼쪽 검색 영역 */
+.search-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    /* 남는 공간 넓게 차지하게 */
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    width: 180px;
+    max-width: 100%;   /* 너무 좁은 화면에서 깨지지 않게 */
+}
+
+/* 오른쪽 버튼 영역 */
+.search-right {
+    margin-left: auto;       /* 왼쪽 입력칸 다음에 항상 오른쪽 끝으로 */
+}
+
+.search-right button,
+.search-right a {
+    white-space: nowrap;     /* 버튼 텍스트 줄바꿈 방지 */
 }
