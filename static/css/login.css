@@ -22,7 +22,7 @@ main:has(.login-wrapper) {
 /* 로그인 박스(카드) */
 .login-box {
     width: 480px;
-    height: 480px;
+    height: 380px;
     background: rgba(255,255,255,0.98);
     border-radius: var(--radius-xl);
     border: 2px solid var(--color-line-soft);
