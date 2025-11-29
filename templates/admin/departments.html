@@ -40,7 +40,7 @@
         <div class="search-right">
             <button type="button"
                     class="btn btn-success search-btn"
-                    onclick="openCenteredPopup('{{ url_for('admin.department_new') }}', 600, 700)">
+                    onclick="openCenteredPopup('{{ url_for('admin.department_new') }}?popup=1', 600, 700)">
                 학과 등록
             </button>
         </div>
@@ -70,7 +70,7 @@
                             type="button"
                             class="btn btn-sm btn-warning"
                             onclick="openCenteredPopup('{{ url_for('admin.department_edit',
-                            dept_id=d.dept_id) }}', 600, 700)">
+                            dept_id=d.dept_id)?popup=1 }}', 600, 700)">
                             수정
                         </button>
 

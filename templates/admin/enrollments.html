@@ -48,7 +48,7 @@
         <!-- 오른쪽 등록 버튼 -->
         <div class="search-right">
             <button type="button" class="btn btn-success search-btn"
-                    onclick="openCenteredPopup('{{ url_for('admin.enrollment_new') }}', 600, 700)">
+                    onclick="openCenteredPopup('{{ url_for('admin.enrollment_new') }}?popup=1', 600, 700)">
                 등록
             </button>
         </div>
@@ -88,7 +88,7 @@
                             type="button"
                             class="btn btn-sm btn-warning"
                             onclick="openCenteredPopup('{{ url_for('admin.enrollment_edit', 
-                            enrollment_id=e.enrollment_id) }}', 600, 700)">
+                            enrollment_id=e.enrollment_id) }}?popup=1', 600, 700)">
                             수정
                         </button>
 

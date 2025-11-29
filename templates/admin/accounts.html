@@ -29,7 +29,7 @@
         <div class="search-left"></div>
         <div class="search-right">
             <button type="button" class="btn btn-success"
-                    onclick="openCenteredPopup('{{ url_for('admin.account_new') }}', 600, 700)">
+                    onclick="openCenteredPopup('{{ url_for('admin.account_new') }}?popup=1', 600, 700)">
                 계정 생성
             </button>
         </div>
@@ -58,13 +58,13 @@
 
                 <td>
                     {% if a.student_id %}
-                        {{ a.student_id }} - {{ a.student_name }}
+                        {{ a.student_name }}
                     {% endif %}
                 </td>
 
                 <td>
                     {% if a.professor_id %}
-                        {{ a.professor_id }} - {{ a.professor_name }}
+                        {{ a.professor_name }}
                     {% endif %}
                 </td>
 
@@ -78,7 +78,7 @@
                         <button type="button"
                                 class="btn btn-sm btn-warning"
                                 onclick="openCenteredPopup('{{ url_for('admin.account_edit',
-                                account_id=a.account_id) }}', 600, 600)">
+                                account_id=a.account_id) }}?popup=1', 600, 600)">
                             수정
                         </button>
 

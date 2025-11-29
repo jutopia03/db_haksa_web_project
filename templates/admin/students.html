@@ -54,7 +54,7 @@
         <button
             type="button"
             class="btn btn-success search-btn"
-            onclick="openCenteredPopup('{{ url_for('admin.student_new') }}', 600, 700)">
+            onclick="openCenteredPopup('{{ url_for('admin.student_new') }}?popup=1', 600, 700)">
             학생 등록
         </button>
     </div>
@@ -96,7 +96,7 @@
                         <button
                             type="button"
                             class="btn btn-warning btn-sm"
-                            onclick="openCenteredPopup('{{ url_for('admin.student_edit', student_id=s.student_id) }}', 600, 700)">
+                            onclick="openCenteredPopup('{{ url_for('admin.student_edit', student_id=s.student_id) }}?popup=1', 600, 700)">
                             수정
                         </button>
 

@@ -29,10 +29,22 @@
 
         <!-- 왼쪽 검색 폼 (필요하면 확장 가능) -->
         <form class="search-left" method="get">
-            <input type="text" name="course_name" value="{{ request.args.get('course_name','') }}"
-                class="form-control search-input" placeholder="강좌명 검색">
+            <select name="dept_id" class="form-select search-input">
+            <option value="">학과 전체</option>
+            {% for d in depts %}
+            <option value="{{ d.dept_id }}" {% if search_dept_id|int == d.dept_id %}selected{% endif %}>
+                {{ d.dept_name }}
+            </option>
+            {% endfor %}
+        </select>
+        
+        <input type="text" name="name" value="{{ search_name }}" 
+               class="form-control search-input" placeholder="강좌명 검색">
 
-            <button class="btn btn-primary search-btn" type="submit">검색</button>
+        <input type="text" name="course_id" value="{{ search_course_id }}" 
+               class="form-control search-input" placeholder="강좌 번호 검색">
+
+        <button class="btn btn-primary search-btn" type="submit">검색</button>
         </form>
 
         <!-- 오른쪽 강좌 등록 버튼 -->
@@ -40,7 +52,7 @@
             <button
                 type="button"
                 class="btn btn-success search-btn"
-                onclick="openCenteredPopup('{{ url_for('admin.course_new') }}', 600, 700)">
+                onclick="openCenteredPopup('{{ url_for('admin.course_new') }}?popup=1', 600, 700)">
                 강좌 등록
             </button>
         </div>
@@ -80,7 +92,7 @@
                         <button
                             type="button"
                             class="btn btn-sm btn-warning"
-                            onclick="openCenteredPopup('{{ url_for('admin.course_edit', course_id=c.course_id) }}', 600, 700)">
+                            onclick="openCenteredPopup('{{ url_for('admin.course_edit', course_id=c.course_id) }}?popup=1', 600, 700)">
                             수정
                         </button>
 
