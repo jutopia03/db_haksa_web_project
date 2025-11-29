@@ -29,11 +29,11 @@
 
         <!-- 왼쪽 : 나중에 검색필터 추가할 수 있게 비워둠 -->
         <form class="search-left" method="get">
-            <!-- 예시로 학과명 검색 하나 넣고 싶으면 주석 해제해서 사용
+            {# 
             <input type="text" name="dept_name" value="{{ request.args.get('dept_name','') }}"
                    class="form-control search-input" placeholder="학과명 검색">
             <button class="btn btn-primary search-btn" type="submit">검색</button>
-            -->
+            #}
         </form>
 
         <!-- 오른쪽 : 학과 등록 버튼 (팝업) -->
@@ -69,8 +69,7 @@
                         <button
                             type="button"
                             class="btn btn-sm btn-warning"
-                            onclick="openCenteredPopup('{{ url_for('admin.department_edit',
-                            dept_id=d.dept_id)?popup=1 }}', 600, 700)">
+                            onclick="openCenteredPopup('{{ url_for('admin.department_edit', dept_id=d.dept_id) }}?popup=1', 600, 700)">
                             수정
                         </button>
 
