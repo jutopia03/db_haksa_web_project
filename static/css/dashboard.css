@@ -120,6 +120,14 @@
     opacity: 0.95;
 }
 
+.total-main-dashboard .dash-card-title,
+.total-main-dashboard .dash-card-desc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 /* ===== 반응형 정렬 규칙 ===== */
 
 /* 1300px 이하: 관리자 4개, 학생/교수 그대로 2개 */
