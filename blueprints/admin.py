@@ -65,7 +65,7 @@ def dashboard():
 
 
 #================================================================================
-# 4-2. 학생 관리: admin/students
+# 4-2. 학생 관리 (검색): admin/students
 @admin_bp.route("/students")
 @login_required
 @role_required("admin")
@@ -88,7 +88,7 @@ def students():
             s.phone
         FROM student s
         INNER JOIN department d USING(dept_id)
-        WHERE 1 = 1
+        WHERE 1=1
     """
 
     params = {}
@@ -156,8 +156,7 @@ def student_new():
         if not student_id or not student_name or not dept_id:
             flash("학번, 이름, 학과는 필수입니다.")
             return redirect(url_for("admin.student_new"))
-
-        # 🔥 학번 중복 체크
+        
         exists_sql = text("""
             SELECT COUNT(*) 
             FROM student
@@ -344,7 +343,7 @@ def student_detail(student_id):
 
 
 #================================================================================
-# 4-3. 교수 관리: admin/professors
+# 4-3. 교수 관리(검색): admin/professors
 @admin_bp.route("/professors")
 @login_required
 @role_required("admin")
@@ -354,7 +353,11 @@ def professors():
         flash("관리자 정보를 찾을 수 없습니다.")
         return redirect(url_for("auth.login"))
 
-    sql = text("""
+    search_name = request.args.get("name", type=str, default="").strip()
+    search_professor_id = request.args.get("professor_id", type=str, default="").strip()
+    search_dept_id = request.args.get("dept_id", type=str, default="").strip()
+
+    base_sql = """
         SELECT
             p.professor_id,
             p.professor_name,
@@ -362,10 +365,31 @@ def professors():
             p.position,
             p.phone
         FROM professor p
-        LEFT JOIN department d ON p.dept_id = d.dept_id
-        ORDER BY p.professor_id
-    """)
-    rows = db.session.execute(sql).fetchall()
+        INNER JOIN department d USING(dept_id)
+        WHERE 1=1
+    """
+    
+    params = {}
+
+    if search_name:
+        base_sql += " AND p.professor_name LIKE :name"
+        params["name"] = f"%{search_name}%"
+
+    if search_professor_id:
+        base_sql += " AND p.professor_id LIKE :professor_id"
+        try:
+            params["professor_id"] = int(search_professor_id)
+        except ValueError:
+            params["professor_id"] = -1
+
+    if search_dept_id:
+        base_sql += " AND p.dept_id LIKE :dept_id"
+        params["dept_id"] = int(search_dept_id)
+
+    base_sql += " ORDER BY p.professor_id"
+
+    sql = text(base_sql)
+    rows = db.session.execute(sql, params).fetchall()
 
     professors = [
         {
@@ -378,7 +402,15 @@ def professors():
         for r in rows
     ]
 
-    return render_template("admin/professors.html", professors=professors)
+    dept_sql = text("SELECT dept_id, dept_name FROM department ORDER BY dept_name")
+    depts = db.session.execute(dept_sql).fetchall()
+
+    return render_template("admin/professors.html",
+                           professors=professors,
+                           depts=depts,
+                           search_name=search_name,
+                           search_professor_id=search_professor_id,
+                           search_dept_id=search_dept_id)
 
 # 4-3-1. 교수 관리 (등록): admin/professors/new
 @admin_bp.route("/professors/new", methods=["GET", "POST"])
@@ -728,8 +760,11 @@ def courses():
         flash("관리자 정보를 찾을 수 없습니다.")
         return redirect(url_for("auth.login"))
 
-    sql = text(
-        """
+    search_name = request.args.get("name", type=str, default="").strip()
+    search_course_id = request.args.get("course_id", type=str, default="").strip()
+    search_dept_id = request.args.get("dept_id", type=str, default="").strip()
+
+    base_sql = """
         SELECT
             c.course_id,
             c.course_name,
@@ -741,10 +776,30 @@ def courses():
         FROM course c
         LEFT JOIN professor p ON c.professor_id = p.professor_id
         LEFT JOIN department d ON p.dept_id = d.dept_id
-        ORDER BY c.course_id
+        WHERE 1=1
         """
-    )
-    rows = db.session.execute(sql).fetchall()
+    
+    params = {}
+
+    if search_name:
+        base_sql += " AND c.course_name LIKE :name"
+        params["name"] = f"%{search_name}%"
+
+    if search_course_id:
+        base_sql += " AND c.course_id = :course_id"
+        try:
+            params["course_id"] = int(search_course_id)
+        except ValueError:
+            params["course_id"] = -1
+
+    if search_dept_id:
+        base_sql += " AND d.dept_id = :dept_id"
+        params["dept_id"] = int(search_dept_id)
+
+    base_sql += " ORDER BY c.course_id"
+
+    sql = text(base_sql)
+    rows = db.session.execute(sql, params).fetchall()
 
     courses = [
         {
@@ -759,7 +814,14 @@ def courses():
         for r in rows
     ]
 
-    return render_template("admin/courses.html", courses=courses)
+    dept_sql = text("SELECT dept_id, dept_name FROM department ORDER BY dept_name")
+    depts = db.session.execute(dept_sql).fetchall()
+
+    return render_template("admin/courses.html", courses=courses,
+                                                depts=depts,
+                                                search_name=search_name,
+                                                search_course_id=search_course_id,
+                                                search_dept_id=search_dept_id,)
 
 # 4-5-1. 강좌 관리 (등록): /admin/courses/new
 @admin_bp.route("/courses/new", methods=["GET", "POST"])
@@ -1050,57 +1112,68 @@ def enrollment_new():
         return redirect(url_for("auth.login"))
 
     if request.method == "POST":
-        student_id = request.form.get("student_id")
-        course_id = request.form.get("course_id")
-        year = request.form.get("year")
-        semester = request.form.get("semester")
+        student_id_raw = request.form.get("student_id")
+        course_id_raw = request.form.get("course_id")
+        year_raw = request.form.get("year")
+        semester_raw = request.form.get("semester")
         grade = request.form.get("grade")
 
-        if not student_id or not course_id or not year or not semester:
+        if not student_id_raw or not course_id_raw or not year_raw or not semester_raw:
             flash("학생, 강좌, 연도, 학기는 필수입니다.")
             return redirect(url_for("admin.enrollment_new"))
  
-        insert_sql = text(
-            """
-            INSERT INTO enrollment (
-                enrollment_id,
-                student_id,
-                course_id,
-                year,
-                semester,
-                grade
-            ) VALUES (
-                (SELECT IFNULL(MAX(enrollment_id), 0) + 1 FROM enrollment),
-                :student_id,
-                :course_id,
-                :year,
-                :semester,
-                :grade
-            )
-            """
-        )
+        try:
+            student_id = int(student_id_raw)
+            course_id = int(course_id_raw)
+            year = int(year_raw)
+            semester = int(semester_raw)
+        except ValueError:
+            flash("숫자 형식 필드를 확인하세요.")
+            return redirect(url_for("admin.enrollment_new"))
 
-        db.session.execute(
-            insert_sql,
-            {
-                "student_id": int(student_id),
-                "course_id": int(course_id),
-                "year": int(year),
-                "semester": int(semester),
-                "grade": grade,
-            },
-        )
-        db.session.commit()
+        conn = db.engine.connect()
+        trans = conn.begin()
+        try:
+            row = conn.execute(text("SELECT IFNULL(MAX(enrollment_id), 0) AS m FROM enrollment")).fetchone()
+            next_id = (row.m or 0) + 1
+
+            conn.execute(
+                text(
+                    """
+                    INSERT INTO enrollment (
+                        enrollment_id, student_id, course_id, year, semester, grade
+                    ) VALUES (
+                        :enrollment_id, :student_id, :course_id, :year, :semester, :grade
+                    )
+                    """
+                ),
+                {
+                    "enrollment_id": next_id,
+                    "student_id": student_id,
+                    "course_id": course_id,
+                    "year": year,
+                    "semester": semester,
+                    "grade": grade,
+                }
+            )
+
+            trans.commit()
+        except Exception as e:
+            trans.rollback()
+            flash(f"수강내역 등록 중 오류가 발생했습니다: {e}")
+            return redirect(url_for("admin.enrollment_new"))
+        finally:
+            conn.close()
 
         flash("수강내역이 등록되었습니다.")
         return redirect(url_for("admin.enrollments"))
 
     students = db.session.execute(
-        text("SELECT student_id, student_name FROM student ORDER BY student_name")
+        text("SELECT student_id, student_name FROM student ORDER BY student_id")
     ).fetchall()
 
     courses = db.session.execute(
-        text("SELECT course_id, course_name FROM course ORDER BY course_name")
+        text("SELECT course_id, course_name FROM course ORDER BY course_id")
     ).fetchall()
 
     return render_template(
@@ -1327,11 +1400,11 @@ def account_new():
         return redirect(url_for("admin.accounts"))
 
     students = db.session.execute(
-        text("SELECT student_id, student_name FROM student ORDER BY student_name")
+        text("SELECT student_id, student_name FROM student ORDER BY student_id")
     ).fetchall()
 
     professors = db.session.execute(
-        text("SELECT professor_id, professor_name FROM professor ORDER BY professor_name")
+        text("SELECT professor_id, professor_name FROM professor ORDER BY professor_id")
     ).fetchall()
 
     return render_template(
@@ -1415,11 +1488,11 @@ def account_edit(account_id):
         return redirect(url_for("admin.accounts"))
 
     students = db.session.execute(
-        text("SELECT student_id, student_name FROM student ORDER BY student_name")
+        text("SELECT student_id, student_name FROM student ORDER BY student_id")
     ).fetchall()
 
     professors = db.session.execute(
-        text("SELECT professor_id, professor_name FROM professor ORDER BY professor_name")
+        text("SELECT professor_id, professor_name FROM professor ORDER BY professor_id")
     ).fetchall()
 
     return render_template(

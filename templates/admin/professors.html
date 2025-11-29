@@ -22,20 +22,36 @@
 <div class="total-main">
     <h2>교수 관리</h2>
     <p class="mb-3">교수 정보를 조회하고 관리할 수 있습니다.</p>
+    
+<div class="search-wrapper">
+    <form class="search-left" method="get">
+        <select name="dept_id" class="form-select search-input">
+            <option value="">학과 전체</option>
+            {% for d in depts %}
+            <option value="{{ d.dept_id }}" {% if search_dept_id|int == d.dept_id %}selected{% endif %}>
+                {{ d.dept_name }}
+            </option>
+            {% endfor %}
+        </select>
+        
+        <input type="text" name="name" value="{{ search_name }}" 
+                class="form-control search-input" placeholder="이름 검색">
 
-    {# 상단 오른쪽에 교수 등록 버튼 (팝업으로 열기) #}
-    <div class="search-wrapper">
-        <div class="search-left"></div>
+        <input type="text" name="professor_id" value="{{ search_professor_id }}" 
+                class="form-control search-input" placeholder="교수 번호 검색">
 
-        <div class="search-right">
-            <button
-                type="button"
-                class="btn btn-success search-btn"
-                onclick="openCenteredPopup('{{ url_for('admin.professor_new') }}', 600, 700)">
-                교수 등록
-            </button>
-        </div>
+        <button class="btn btn-primary search-btn" type="submit">검색</button>
+    </form>
+
+    <div class="search-right">
+        <button
+            type="button"
+            class="btn btn-success search-btn"
+            onclick="openCenteredPopup('{{ url_for('admin.professor_new') }}', 600, 700)">
+            교수 등록
+        </button>
     </div>
+</div>
 
     <table class="table table-bordered table-hover bg-white shadow-sm">
         <thead class="table-light">
