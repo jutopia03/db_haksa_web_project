@@ -28,20 +28,20 @@
         </select>
     </div>
     <div class="mb-3">
-        <label class="form-label">학생 연결 (student 계정인 경우)</label>
+        <label class="form-label">학생 (student 계정인 경우)</label>
         <select name="student_id" class="form-select">
             <option value="">선택 안함</option>
             {% for s in students %}
-            <option value="{{ s.student_id }}">{{ s.student_id }} - {{ s.student_name }}</option>
+            <option value="{{ s.student_id }}">{{ s.student_name }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="mb-3">
-        <label class="form-label">교수 연결 (professor 계정인 경우)</label>
+        <label class="form-label">교수 (professor 계정인 경우)</label>
         <select name="professor_id" class="form-select">
             <option value="">선택 안함</option>
             {% for p in professors %}
-            <option value="{{ p.professor_id }}">{{ p.professor_id }} - {{ p.professor_name }}</option>
+            <option value="{{ p.professor_id }}">{{ p.professor_name }}</option>
             {% endfor %}
         </select>
     </div>

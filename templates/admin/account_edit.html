@@ -24,23 +24,23 @@
         </select>
     </div>
     <div class="mb-3">
-        <label class="form-label">학생 연결</label>
+        <label class="form-label">학생</label>
         <select name="student_id" class="form-select">
             <option value="">선택 안함</option>
             {% for s in students %}
             <option value="{{ s.student_id }}" {% if s.student_id == account.student_id %}selected{% endif %}>
-                {{ s.student_id }} - {{ s.student_name }}
+                {{ s.student_name }}
             </option>
             {% endfor %}
         </select>
     </div>
     <div class="mb-3">
-        <label class="form-label">교수 연결</label>
+        <label class="form-label">교수</label>
         <select name="professor_id" class="form-select">
             <option value="">선택 안함</option>
             {% for p in professors %}
             <option value="{{ p.professor_id }}" {% if p.professor_id == account.professor_id %}selected{% endif %}>
-                {{ p.professor_id }} - {{ p.professor_name }}
+                {{ p.professor_name }}
             </option>
             {% endfor %}
         </select>
