@@ -20,10 +20,8 @@
     <h2>내 수강내역 / 성적</h2>
     <hr>
 
-    <!-- 검색 영역 전체 (왼쪽 검색 + 오른쪽 전체보기 버튼) -->
     <div class="search-wrapper">
 
-        <!-- 왼쪽: 연도 / 학기 / 조회 -->
         <form method="get" class="search-left">
             <input type="number"
                    name="year"
@@ -42,7 +40,6 @@
             </button>
         </form>
 
-        <!-- 오른쪽: 전체 보기 버튼 -->
         <div class="search-right">
             <a href="{{ url_for('student.enrollments') }}"
                class="btn btn-secondary search-btn">

@@ -1,11 +1,9 @@
-/* 모바일 메뉴 - 기본 숨김 */
 .mobile-menu {
     display: none;
 }
 
-/* 작은 화면(900px 이하)에서 표시 */
 @media (max-width: 900px) {
     .total-sidebar {
-        display: none !important;   /* 사이드바 숨기기 */
+        display: none !important;
     }
 }

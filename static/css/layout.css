@@ -1,4 +1,3 @@
-/* 상단 헤더 / 네비게이션 */
 header.topbar {
     background-color: var(--color-primary);
     color: #ffffff;
@@ -10,20 +9,17 @@ header.topbar {
     justify-content: space-between;
 }
 
-/* 왼쪽 로고 텍스트 */
 .topbar-logo {
     font-size: 20px;
     font-weight: 700;
 }
 
-/* 오른쪽 유저 영역 전체 */
 .topbar-right {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-/* 유저 아이콘 + 이름 */
 .topbar-user {
     display: flex;
     align-items: center;
@@ -31,7 +27,6 @@ header.topbar {
     font-size: 14px;
 }
 
-/* 동그란 프로필 아이콘 */
 .topbar-avatar {
     width: 28px;
     height: 28px;
@@ -43,12 +38,10 @@ header.topbar {
     font-size: 14px;
 }
 
-/* 사용자 이름 */
 .topbar-username {
     font-weight: 500;
 }
 
-/* 로그아웃 버튼 (흰색 정사각형) */
 .topbar-logout {
     width: 32px;
     height: 32px;
@@ -67,37 +60,32 @@ header.topbar {
     background: #e8f0ff;
 }
 
-/* 메인 컨테이너 (학생/교수/관리자 공통 기본) */
-/* 메인 컨테이너 (학생/교수/관리자 공통 기본) */
 main {
     width: 100%;
     max-width: none;
     margin: 16px 0 32px 0;
-    padding: 0 24px 24px 0;    /* 왼쪽 패딩: 0으로 */
+    padding: 0 24px 24px 0;   
     background: none;
     border-radius: 0;
     box-shadow: none;
 }
 
-/* 학생/교수 레이아웃 (사이드바 + 내용) */
 .total-layout {
     display: flex;
     gap: 16px;
     align-items: stretch;
     min-height: 450px;
 
-    width: 100%;          /* 화면 전체 사용 */
-    max-width: none;      /* 가운데 정렬 제거 */
-    margin: 0;            /* 좌우 여백 제거 */
+    width: 100%;         
+    max-width: none;    
+    margin: 0;            
 }
 
-
-/* 왼쪽 사이드바 */
 .total-sidebar {
     margin-top: 24px;
     width: 240px;
     background-color: var(--color-sidebar-bg);
-    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;  /* 왼쪽은 0, 오른쪽만 둥글게 */
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0; 
     color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.18);
 
@@ -119,7 +107,7 @@ main {
     list-style: none;
     margin: 0;
     padding: 0;
-    flex: 1;                  /* 메뉴가 남는 높이를 채워서 쭉 늘어남 */
+    flex: 1;                 
 }
 
 .total-menu li a {
@@ -135,14 +123,12 @@ main {
     background-color: rgba(255,255,255,0.08);
 }
 
-/* 선택된 메뉴 */
 .total-menu li.active a {
     background-color: #004a90;
     color: #ffffff;
     font-weight: 600;
 }
 
-/* 오른쪽 내용 카드 */
 .total-main {
     flex: 1;
     border-radius: var(--radius-lg);
@@ -171,17 +157,16 @@ main {
 
 .page-content {
     width: 100%;
-    max-width: 1200px;   /* 너가 원하는 폭 */
-    margin: 0 auto;      /* 화면 가운데 정렬 */
+    max-width: 1200px;  
+    margin: 0 auto;    
     padding: 44px 16px;
 }
 
 .table-manage-col {
-    width: 200px;      /* 원하는 크기 (100~160px 추천) */
-    white-space: nowrap;  /* 버튼 줄바꿈 방지 */
+    width: 200px;      
+    white-space: nowrap;  
 }
 
-/* 레이아웃 반응형 */
 @media (max-width: 900px) {
     .total-layout {
         flex-direction: column;
@@ -196,7 +181,6 @@ main {
     }
 }
 
-/* 검색 영역 전체 */
 .search-wrapper {
     display: flex;
     align-items: center;
@@ -204,32 +188,28 @@ main {
     gap: 8px;
     margin-bottom: 16px;
 
-    /* 화면이 좁을 때만 줄바꿈 허용 */
     flex-wrap: wrap;
 }
 
-/* 왼쪽 검색 영역 */
 .search-left {
     display: flex;
     align-items: center;
     gap: 8px;
 
-    /* 남는 공간 넓게 차지하게 */
     flex: 1 1 auto;
     flex-wrap: wrap;
 }
 
 .search-input {
     width: 180px;
-    max-width: 100%;   /* 너무 좁은 화면에서 깨지지 않게 */
+    max-width: 100%;   
 }
 
-/* 오른쪽 버튼 영역 */
 .search-right {
-    margin-left: auto;       /* 왼쪽 입력칸 다음에 항상 오른쪽 끝으로 */
+    margin-left: auto;   
 }
 
 .search-right button,
 .search-right a {
-    white-space: nowrap;     /* 버튼 텍스트 줄바꿈 방지 */
+    white-space: nowrap;   
 }

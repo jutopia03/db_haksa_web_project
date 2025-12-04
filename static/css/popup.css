@@ -1,15 +1,12 @@
-/* 팝업에서는 상단 헤더 숨기기 */
 body.popup-page header {
     display: none;
 }
 
-/* 팝업에서는 여백 제거 */
 body.popup-page .default-layout {
     margin: 0 !important;
     padding: 0 !important;
 }
 
-/* 팝업 콘텐츠를 화면에 꽉 차게 */
 body.popup-page .page-content {
     max-width: none !important;
     margin: 0 !important;

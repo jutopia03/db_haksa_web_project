@@ -1,18 +1,15 @@
-/* 상세: 파란색 */
 .btn-info {
     background-color: #1E88E5 !important;
     border-color: #1E88E5 !important;
     color: white !important;
 }
 
-/* 수정: 초록색 */
 .btn-warning {
     background-color: #FBC02D !important;
     border-color: #FBC02D !important;
     color: white !important;
 }
 
-/* 삭제: 빨간색 */
 .btn-danger {
     background-color: #E53935 !important;
     border-color: #E53935 !important;
@@ -20,12 +17,11 @@
 }
 
 .btn-resetpw {
-    background-color: #198754 !important; /* Bootstrap success 기본 */
+    background-color: #198754 !important;
     border-color: #198754 !important;
     color: white !important;
 }
 
-/* Hover 효과 */
 .btn-info:hover {
     background-color: #1565C0 !important;
 }
@@ -46,17 +42,16 @@
 .action-btns {
     display: flex;
     align-items: center;
-    gap: 6px;        /* 버튼 사이 간격 */
+    gap: 6px;     
 }
 
 .action-btns form {
-    margin: 0;       /* 삭제 버튼 폼 기본 여백 제거 */
+    margin: 0;      
 } 
 
-/* 관리 버튼 공통 스타일 */
 .manage-btn-group .btn {
-    min-width: 70px;          /* 버튼 최소 가로길이統一 */
-    text-align: center;       /* 텍스트 중앙 정렬 */
+    min-width: 70px;         
+    text-align: center;      
     display: inline-block;
 }
 
@@ -74,7 +69,7 @@
     border: none;
 
     cursor: pointer;
-    text-decoration: none;       /* 링크 밑줄 제거 */
+    text-decoration: none;       
 
     transition: background-color 0.18s ease, 
                 transform 0.18s ease,
@@ -94,6 +89,6 @@
     box-shadow: none;
 }
 
-.manage-btn-group .btn-warning { min-width: 60px; }  /* 수정 */
-.manage-btn-group .btn-danger { min-width: 60px; }   /* 삭제 */
-.manage-btn-group .btn-resetpw { min-width: 95px; } /* PW 초기화 */
+.manage-btn-group .btn-warning { min-width: 60px; }  
+.manage-btn-group .btn-danger { min-width: 60px; }  
+.manage-btn-group .btn-resetpw { min-width: 95px; } 
