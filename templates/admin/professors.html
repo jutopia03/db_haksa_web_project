@@ -47,7 +47,7 @@
         <button
             type="button"
             class="btn btn-success search-btn"
-            onclick="openCenteredPopup('{{ url_for('admin.professor_new') }}', 600, 700)">
+            onclick="openCenteredPopup('{{ url_for('admin.professor_new') }}?popup=1', 600, 700)">
             교수 등록
         </button>
     </div>
@@ -89,7 +89,7 @@
                         type="button"
                         class="btn btn-sm btn-warning"
                         onclick="openCenteredPopup('{{ url_for('admin.professor_edit',
-                                                              professor_id=p.professor_id) }}',
+                                                              professor_id=p.professor_id) }}?popup=1',
                                                    600, 700)">
                         수정
                     </button>

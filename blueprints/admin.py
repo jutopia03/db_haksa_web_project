@@ -200,6 +200,16 @@ def student_new():
         db.session.commit()
 
         flash("학생이 성공적으로 등록되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.students"))
 
     dept_sql = text("""
@@ -266,6 +276,16 @@ def student_edit(student_id):
         db.session.commit()
 
         flash("학생 정보가 수정되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.students"))
 
     dept_sql = text("SELECT dept_id, dept_name FROM department ORDER BY dept_name")
@@ -477,6 +497,16 @@ def professor_new():
         db.session.commit()
 
         flash("교수가 성공적으로 등록되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }       
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.professors"))
 
     # 학과 드롭다운용
@@ -537,6 +567,16 @@ def professor_edit(professor_id):
         db.session.commit()
 
         flash("교수 정보가 수정되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.professors"))
 
     # 학과 목록
@@ -675,6 +715,16 @@ def department_new():
         db.session.commit()
 
         flash("학과가 등록되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload(); 
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.departments"))
 
     return render_template("admin/department_new.html")
@@ -719,6 +769,16 @@ def department_edit(dept_id):
         db.session.commit()
 
         flash("학과 정보가 수정되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close(); 
+            </script>
+            """
+
         return redirect(url_for("admin.departments"))
 
     return render_template("admin/department_edit.html", dept=dept)
@@ -876,6 +936,16 @@ def course_new():
         db.session.commit()
 
         flash("강좌가 성공적으로 등록되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload(); 
+                }
+                window.close();  
+            </script>
+            """
+
         return redirect(url_for("admin.courses"))
 
     # 학과/교수 드롭다운용 데이터
@@ -962,6 +1032,16 @@ def course_edit(course_id):
         db.session.commit()
 
         flash("강좌 정보가 수정되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close(); 
+            </script>
+            """
+
         return redirect(url_for("admin.courses"))
 
     # 학과/교수 목록 조회
@@ -1166,6 +1246,16 @@ def enrollment_new():
             conn.close()
 
         flash("수강내역이 등록되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.enrollments"))
 
     students = db.session.execute(
@@ -1241,6 +1331,16 @@ def enrollment_edit(enrollment_id):
         db.session.commit()
 
         flash("수강내역이 수정되었습니다.")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.enrollments"))
 
     # 드롭다운용 학생 / 강좌 목록
@@ -1397,6 +1497,16 @@ def account_new():
         except Exception:
             db.session.rollback()
             flash("계정 생성 중 오류가 발생했습니다. (아이디 중복 등)")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.accounts"))
 
     students = db.session.execute(
@@ -1485,6 +1595,16 @@ def account_edit(account_id):
         except Exception:
             db.session.rollback()
             flash("계정 수정 중 오류가 발생했습니다. (아이디 중복 등)")
+        if request.args.get("popup") == "1":
+            return """
+            <script>
+                if (window.opener) {
+                    window.opener.location.reload();
+                }
+                window.close();
+            </script>
+            """
+
         return redirect(url_for("admin.accounts"))
 
     students = db.session.execute(

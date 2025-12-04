@@ -52,7 +52,7 @@
             <button
                 type="button"
                 class="btn btn-success search-btn"
-                onclick="openCenteredPopup('{{ url_for('admin.course_new') }}', 600, 700)">
+                onclick="openCenteredPopup('{{ url_for('admin.course_new') }}?popup=1', 600, 700)">
                 강좌 등록
             </button>
         </div>
@@ -92,7 +92,7 @@
                         <button
                             type="button"
                             class="btn btn-sm btn-warning"
-                            onclick="openCenteredPopup('{{ url_for('admin.course_edit', course_id=c.course_id) }}', 600, 700)">
+                            onclick="openCenteredPopup('{{ url_for('admin.course_edit', course_id=c.course_id) }}?popup=1', 600, 700)">
                             수정
                         </button>
 
